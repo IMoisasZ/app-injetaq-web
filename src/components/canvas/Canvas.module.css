@@ -1,0 +1,19 @@
+.btn {
+    border: none;
+    background-color: transparent;
+    padding: 0 0.5em 0 0;
+
+}
+
+.btn svg {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 3em;
+}
+
+.btn:focus,
+.btn:focus-visible {
+    background-color: transparent;
+    box-shadow: none;
+}

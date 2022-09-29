@@ -1,0 +1,24 @@
+.container_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #363636;
+    margin-top: 1em;
+    color: #D2691E;
+    padding: 0.5em;
+}
+
+.container_header .div_canvas_name {
+    display: flex;
+}
+
+.container_header img {
+    width: 4em;
+}
+
+.container_header .div_img {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
