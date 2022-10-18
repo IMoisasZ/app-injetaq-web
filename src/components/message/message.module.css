@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.error {
+    background-color: #8b0000;
+    color: #fff;
+    padding: 1em 8em;
+    border-radius: 0.5em;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #006400;
+    color: #fff;
+    padding: 1em 8em;
+    border-radius: 0.5em;
+    font-weight: bold;
+}
+
+.warning {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 1em 8em;
+    border-radius: 0.5em;
+    font-weight: bold;
+}

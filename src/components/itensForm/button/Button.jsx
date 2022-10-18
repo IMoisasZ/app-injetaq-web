@@ -9,6 +9,8 @@ export default function MyButton({
 	handleOnClick,
 	width = '4em',
 	height = '4em',
+	backgroundColor,
+	color,
 }) {
 	return (
 		<div className={styles.container}>
@@ -17,7 +19,7 @@ export default function MyButton({
 				type={type}
 				onClick={handleOnClick}
 				className={styles.button}
-				style={{ width, height }}
+				style={{ width, height, backgroundColor, color }}
 			>
 				{nameButton}
 			</Button>

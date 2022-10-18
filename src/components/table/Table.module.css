@@ -1,0 +1,10 @@
+.container {
+    max-height: 95%;
+    overflow-y: scroll;
+}
+
+.header_table {
+    text-align: center;
+    background-color: #363636;
+    color: #D2691E;
+}

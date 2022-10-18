@@ -13,6 +13,38 @@ export default function DI() {
 				<MyRow>
 					<MyInput
 						type='text'
+						nameLabel='Incluido por'
+						name='incluidoPor'
+						placeHolder='Incluído por'
+						width='15em'
+						readOnly={true}
+					/>
+					<MyInput
+						type='text'
+						nameLabel='Data inclusão'
+						name='dataInclusao'
+						placeHolder='Data inclusão'
+						width='10em'
+						readOnly={true}
+					/>
+					<MyInput
+						type='text'
+						nameLabel='Alterado por'
+						name='alteradoPor'
+						placeHolder='Alterado por'
+						width='15em'
+						readOnly={true}
+					/>
+					<MyInput
+						type='text'
+						nameLabel='Data alteração'
+						name='dataAlteracao'
+						placeHolder='Data alteração'
+						width='10em'
+						readOnly={true}
+					/>
+					<MyInput
+						type='text'
 						nameLabel='Status'
 						name='status'
 						placeHolder='Status da di'
@@ -21,6 +53,7 @@ export default function DI() {
 						justifyContent='center'
 						alignItems='flex-end'
 						flexDirection='column'
+						readOnly={true}
 					/>
 				</MyRow>
 				<MyRow>

@@ -14,12 +14,20 @@ export default function MyInput({
 	justifyContent,
 	alignItems,
 	flexDirection,
+	readOnly = false,
+	value,
 }) {
 	return (
 		<Form.Group
 			as={Col}
 			controlId={name}
-			style={{ display, justifyContent, alignItems, flexDirection }}
+			style={{
+				display,
+				justifyContent,
+				alignItems,
+				flexDirection,
+				width,
+			}}
 			className={styles.container}
 		>
 			<Form.Label className={styles.input_label} style={{ width }}>
@@ -31,6 +39,8 @@ export default function MyInput({
 				placeholder={placeHolder}
 				name={name}
 				onChange={handleOnchange}
+				readOnly={readOnly}
+				value={value}
 			/>
 		</Form.Group>
 	)

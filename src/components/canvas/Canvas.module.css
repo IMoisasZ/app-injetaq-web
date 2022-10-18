@@ -2,7 +2,6 @@
     border: none;
     background-color: transparent;
     padding: 0 0.5em 0 0;
-
 }
 
 .btn svg {
@@ -10,10 +9,15 @@
     color: #fff;
     border: none;
     font-size: 3em;
+    padding: 0;
 }
 
 .btn:focus,
 .btn:focus-visible {
     background-color: transparent;
     box-shadow: none;
+}
+
+.menu {
+    display: flex;
 }

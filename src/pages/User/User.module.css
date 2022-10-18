@@ -1,0 +1,23 @@
+.table_btn {
+    text-align: center;
+}
+
+.div_btns {
+    display: flex;
+    width: 15%;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 2em;
+}
+
+.title_table {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title_table h2 {
+    padding: 0.2em;
+    text-decoration: underline;
+    align-items: flex-start;
+}

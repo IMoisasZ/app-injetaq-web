@@ -1,11 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import DI from './pages/DI/DI'
+import Router from './router/Router'
 function App() {
-	return (
-		<div className='App'>
-			<DI />
-		</div>
-	)
+	return <Router />
 }
 
 export default App
