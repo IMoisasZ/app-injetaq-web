@@ -12,7 +12,6 @@ import MyTable from '../../components/table/Table'
 import ButtonTable from '../../components/table/ButtonsTable'
 import styles from './Operation.module.css'
 import api from '../../api/api'
-import clear from '../../utils/clear'
 
 export default function Operation() {
 	// usestate
@@ -47,15 +46,6 @@ export default function Operation() {
 	// create a new operation
 	const createOperation = async (e) => {
 		e.preventDefault()
-
-		if (!operation) {
-			setMsg({
-				msg: 'Operação não informada!',
-				typeMsg: 'error',
-			})
-			clear(handleClear, 2000)
-		}
-
 		if (nameBtn === 'Incluir') {
 			try {
 				await api.post('operation', {
@@ -67,14 +57,24 @@ export default function Operation() {
 					msg: 'Operação cadastrada com sucesso!',
 					typeMsg: 'success',
 				})
-				clear('all', handleClear, 2000)
+				setTimeout(() => {
+					handleClear()
+				}, 2000)
 			} catch (error) {
-				console.log({ error })
-				setMsg({
-					msg: error.data.response.error,
-					typeMsg: 'error',
-				})
-				clear(handleClear, 2000)
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Operação já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
+				setTimeout(() => {
+					setMsg('')
+				}, 2000)
 			}
 		} else {
 			try {
@@ -88,13 +88,24 @@ export default function Operation() {
 					msg: 'Operação alterada com sucesso!',
 					typeMsg: 'warning',
 				})
-				clear('all', handleClear, 2000)
+				setTimeout(() => {
+					handleClear()
+				}, 2000)
 			} catch (error) {
-				setMsg({
-					msg: error.data.response.error,
-					typeMsg: 'error',
-				})
-				clear(handleClear, 2000)
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Operação já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
+				setTimeout(() => {
+					setMsg('')
+				}, 2000)
 			}
 		}
 	}
@@ -113,7 +124,9 @@ export default function Operation() {
 				msg: error.data.response.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 
@@ -130,7 +143,9 @@ export default function Operation() {
 				msg: error.data.response.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from 'react'
 import Container from '../../components/container/Container'
 import Form from '../../components/itensForm/form/Form'
@@ -9,7 +11,6 @@ import MyTable from '../../components/table/Table'
 import ButtonTable from '../../components/table/ButtonsTable'
 import styles from './Sector.module.css'
 import api from '../../api/api'
-import clear from '../../utils/clear'
 
 export default function Sector() {
 	// usestate
@@ -33,15 +34,6 @@ export default function Sector() {
 	// create a new sector
 	const createSector = async (e) => {
 		e.preventDefault()
-
-		if (!sector) {
-			setMsg({
-				msg: 'Setor não informado!',
-				typeMsg: 'error',
-			})
-			clear(handleClear, 2000)
-		}
-
 		if (nameBtn === 'Incluir') {
 			try {
 				await api.post('sector', {
@@ -52,13 +44,24 @@ export default function Sector() {
 					msg: 'Setor cadastrado com sucesso!',
 					typeMsg: 'success',
 				})
-				clear(handleClear, 2000)
+				setTimeout(() => {
+					handleClear()
+				}, 2000)
 			} catch (error) {
-				setMsg({
-					msg: error.data.response.error,
-					typeMsg: 'error',
-				})
-				clear(handleClear, 2000)
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Setor já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
+				setTimeout(() => {
+					setMsg('')
+				}, 2000)
 			}
 		} else {
 			try {
@@ -71,13 +74,24 @@ export default function Sector() {
 					msg: 'Setor alterado com sucesso!',
 					typeMsg: 'warning',
 				})
-				clear(handleClear, 2000)
+				setTimeout(() => {
+					handleClear()
+				}, 2000)
 			} catch (error) {
-				setMsg({
-					msg: error.data.response.error,
-					typeMsg: 'error',
-				})
-				clear(handleClear, 2000)
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Setor já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
+				setTimeout(() => {
+					setMsg('')
+				}, 2000)
 			}
 		}
 	}
@@ -95,7 +109,9 @@ export default function Sector() {
 				msg: error.data.response.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 
@@ -112,7 +128,9 @@ export default function Sector() {
 				msg: error.data.response.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 

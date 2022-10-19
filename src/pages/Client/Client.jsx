@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from 'react'
 import Container from '../../components/container/Container'
 import Form from '../../components/itensForm/form/Form'
@@ -9,7 +11,6 @@ import Button from '../../components/itensForm/button/Button'
 import Message from '../../components/message/Message'
 import styles from './Client.module.css'
 import api from '../../api/api'
-import clear from '../../utils/clear'
 
 export default function Client() {
 	// usestate
@@ -34,14 +35,6 @@ export default function Client() {
 	const createClient = async (e) => {
 		e.preventDefault()
 
-		if (!client) {
-			setMsg({
-				msg: 'Cliente não informado!',
-				typeMsg: 'error',
-			})
-			clear(handleClear, 2000)
-		}
-		// eslint-disable-next-line default-case
 		if (nameBtn === 'Incluir') {
 			try {
 				await api.post('client', {
@@ -53,13 +46,24 @@ export default function Client() {
 					msg: 'Cliente cadastrado com sucesso!',
 					typeMsg: 'success',
 				})
-				clear(handleClear, 2000)
+				setTimeout(() => {
+					handleClear()
+				}, 2000)
 			} catch (error) {
-				setMsg({
-					msg: error.data.response.error,
-					typeMsg: 'error',
-				})
-				clear(handleClear, 2000)
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Cliente já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
+				setTimeout(() => {
+					setMsg('')
+				}, 2000)
 			}
 		} else {
 			try {
@@ -73,13 +77,24 @@ export default function Client() {
 					msg: 'Cliente alterado com sucesso!',
 					typeMsg: 'warning',
 				})
-				clear(handleClear, 2000)
+				setTimeout(() => {
+					handleClear()
+				}, 2000)
 			} catch (error) {
-				setMsg({
-					msg: error.data.response.error,
-					typeMsg: 'error',
-				})
-				clear(handleClear, 2000)
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Cliente já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
+				setTimeout(() => {
+					setMsg('')
+				}, 2000)
 			}
 		}
 	}
@@ -97,7 +112,9 @@ export default function Client() {
 				msg: error.data.response.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 
@@ -114,7 +131,9 @@ export default function Client() {
 				msg: error.data.response.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 

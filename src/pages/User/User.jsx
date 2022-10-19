@@ -10,9 +10,9 @@ import Message from '../../components/message/Message'
 import Button from '../../components/itensForm/button/Button'
 import MyTable from '../../components/table/Table'
 import ButtonTable from '../../components/table/ButtonsTable'
+import ModalChangePassword from './ModalChangePassword'
 import styles from './User.module.css'
 import api from '../../api/api'
-import clear from '../../utils/clear'
 
 export default function User() {
 	// usestate
@@ -27,6 +27,7 @@ export default function User() {
 	const [listUser, setListUser] = useState([])
 	const [msg, setMsg] = useState('')
 	const [nameBtn, setNameBtn] = useState('Incluir')
+	const [readOnly, setReadOnly] = useState(false)
 
 	// get all Users
 	const allUsers = async () => {
@@ -60,16 +61,22 @@ export default function User() {
 					handleClear()
 				}, 2000)
 			} catch (error) {
-				setMsg({
-					msg: error.response.data.error || error.response.data.erros,
-					typeMsg: 'error',
-				})
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Usuário já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
 				setTimeout(() => {
 					setMsg('')
 				}, 2000)
 			}
-		}
-		if (nameBtn === 'Editar') {
+		} else {
 			try {
 				await api.patch('user', {
 					id,
@@ -79,18 +86,30 @@ export default function User() {
 					role,
 					actived,
 				})
+
 				setMsg({
 					msg: 'Usuário alterado com sucesso!',
 					typeMsg: 'warning',
 				})
-				clear(handleClear, 2000)
+				setTimeout(() => {
+					handleClear()
+				}, 2000)
 			} catch (error) {
-				console.log('patch', { error })
-				setMsg({
-					msg: error.response.data.error || error.response.data.erros,
-					typeMsg: 'error',
-				})
-				clear('msg', setMsg, handleClear)
+				// if (error.response.data.erros) {
+				// 	setMsg({
+				// 		msg: 'Usuário já cadastrado!',
+				// 		typeMsg: 'error',
+				// 	})
+				// } else {
+				// setMsg({
+				// 	msg: error.response.data.error,
+				// 	typeMsg: 'error',
+				// })
+				// }
+				console.log({ error })
+				setTimeout(() => {
+					setMsg('')
+				}, 2000)
 			}
 		}
 	}
@@ -106,12 +125,15 @@ export default function User() {
 			setRole(response.data.role)
 			setActived(response.data.actived)
 			setNameBtn('Editar')
+			setReadOnly(true)
 		} catch (error) {
 			setMsg({
 				msg: error.response.data.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 
@@ -128,7 +150,9 @@ export default function User() {
 				msg: error.response.data.error,
 				typeMsg: 'error',
 			})
-			clear(handleClear, 2000)
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
 		}
 	}
 
@@ -144,6 +168,7 @@ export default function User() {
 		allUsers()
 		setMsg('')
 		setNameBtn('Incluir')
+		setReadOnly(false)
 	}
 
 	// role users
@@ -240,7 +265,7 @@ export default function User() {
 							width: '100%',
 						}}
 					>
-						<div style={{ width: '50%', marginRight: '1em' }}>
+						<div style={{ width: '45%', marginRight: '1em' }}>
 							<MyInput
 								name='password'
 								placeHolder='Digite sua senha'
@@ -248,9 +273,10 @@ export default function User() {
 								type='password'
 								value={password}
 								handleOnchange={(e) => setPassword(e.currentTarget.value)}
+								readOnly={readOnly}
 							/>
 						</div>
-						<div style={{ width: '50%', marginRight: '1em' }}>
+						<div style={{ width: '45%', marginRight: '1em' }}>
 							<MyInput
 								name='confirmPassword'
 								placeHolder='Confirme sua senha'
@@ -260,6 +286,7 @@ export default function User() {
 								handleOnchange={(e) =>
 									setConfirmPassword(e.currentTarget.value)
 								}
+								readOnly={readOnly}
 							/>
 						</div>
 						<div
@@ -288,6 +315,10 @@ export default function User() {
 									nameButton={nameBtn}
 									variant='warning'
 									handleOnClick={editUser}
+								/>
+								<ModalChangePassword
+									name={`${name} ${lastName}`}
+									email={email}
 								/>
 								<Button
 									nameButton='Limpar'

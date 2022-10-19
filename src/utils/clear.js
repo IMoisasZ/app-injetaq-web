@@ -1,14 +1,9 @@
 /** @format */
 
-export default function clear(time = 2000, type, setMsg, handleClear) {
-	if (type === 'error') {
+export default function clear(time = 2000, typeClear, setMsg, handleClear) {
+	if (typeClear === 'error') {
 		setTimeout(() => {
 			setMsg('')
-		}, time)
-	}
-	if (type === 'success') {
-		setTimeout(() => {
-			handleClear()
 		}, time)
 	}
 }
