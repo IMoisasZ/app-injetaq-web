@@ -149,7 +149,7 @@ export default function Workstation() {
 	}
 
 	// header table sectors
-	const header = ['Posto', 'Código', 'Ativo', 'Ações']
+	const header = ['Código do Posto', 'Descrição', 'Ativo', 'Ações']
 
 	return (
 		<Container nameHeader='Posto'>
