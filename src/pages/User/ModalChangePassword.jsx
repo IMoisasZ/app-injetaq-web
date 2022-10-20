@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import MyInput from '../../components/itensForm/input/Input'
 import Message from '../../components/message/Message'
-import MyButton from '../../components/itensForm/button/Button'
 import api from '../../api/api'
 
 export default function ModalChangePassword({ name, email }) {
@@ -47,11 +46,15 @@ export default function ModalChangePassword({ name, email }) {
 
 	return (
 		<>
-			<MyButton
-				variant='primary'
-				handleOnClick={handleShow}
-				nameButton='Alterar Senha'
-			/>
+			<div style={{ margin: '0.5em 0.8em 0 -1em', padding: '0', width: '4em' }}>
+				<Button
+					variant='primary'
+					onClick={handleShow}
+					style={{ padding: '0.5em 0.5em' }}
+				>
+					Alterar Senha
+				</Button>
+			</div>
 
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>

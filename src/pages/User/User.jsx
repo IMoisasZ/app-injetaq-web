@@ -95,18 +95,17 @@ export default function User() {
 					handleClear()
 				}, 2000)
 			} catch (error) {
-				// if (error.response.data.erros) {
-				// 	setMsg({
-				// 		msg: 'Usuário já cadastrado!',
-				// 		typeMsg: 'error',
-				// 	})
-				// } else {
-				// setMsg({
-				// 	msg: error.response.data.error,
-				// 	typeMsg: 'error',
-				// })
-				// }
-				console.log({ error })
+				if (error.response.data.erros) {
+					setMsg({
+						msg: 'Usuário já cadastrado!',
+						typeMsg: 'error',
+					})
+				} else {
+					setMsg({
+						msg: error.response.data.error,
+						typeMsg: 'error',
+					})
+				}
 				setTimeout(() => {
 					setMsg('')
 				}, 2000)
