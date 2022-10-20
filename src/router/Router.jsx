@@ -9,8 +9,9 @@ import DI from '../pages/DI/DI'
 import Operation from '../pages/Operation/Operation'
 import User from '../pages/User/User'
 import Workstation from '../pages/Workstation/Workstation'
+import Employee from '../pages/Employee/Employee'
 
-function KfpRoutes({ children }) {
+export default function MyRoutes({ children }) {
 	return (
 		<>
 			<Router>
@@ -23,11 +24,10 @@ function KfpRoutes({ children }) {
 					<Route path='/operation' element={<Operation />} />
 					<Route path='/user' element={<User />} />
 					<Route path='/workstation' element={<Workstation />} />
+					<Route path='/employee' element={<Employee />} />
 				</Routes>
 				{/* <Footer /> */}
 			</Router>
 		</>
 	)
 }
-
-export default KfpRoutes
