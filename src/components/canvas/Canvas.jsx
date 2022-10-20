@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import ButtonMenu from './ButtonMenu'
@@ -6,7 +8,7 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { FaWpforms } from 'react-icons/fa'
 import { MdOutlineSettingsOverscan, MdHomeRepairService } from 'react-icons/md'
-import { FaUser } from 'react-icons/fa'
+import { FaUser, FaDharmachakra } from 'react-icons/fa'
 import styles from './Canvas.module.css'
 
 export default function OffCanvasExample({ sideCanvas = 'top', ...props }) {
@@ -48,6 +50,11 @@ export default function OffCanvasExample({ sideCanvas = 'top', ...props }) {
 						path='/operation'
 					/>
 					<ButtonMenu icon={<FaUser />} nameIcon='Usuário' path='/user' />
+					<ButtonMenu
+						icon={<FaDharmachakra />}
+						nameIcon='Posto'
+						path='/workstation'
+					/>
 				</Offcanvas.Body>
 			</Offcanvas>
 		</>

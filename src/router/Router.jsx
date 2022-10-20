@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from '../pages/Home/Home'
@@ -6,6 +8,7 @@ import Sector from '../pages/Sector/Sector'
 import DI from '../pages/DI/DI'
 import Operation from '../pages/Operation/Operation'
 import User from '../pages/User/User'
+import Workstation from '../pages/Workstation/Workstation'
 
 function KfpRoutes({ children }) {
 	return (
@@ -19,6 +22,7 @@ function KfpRoutes({ children }) {
 					<Route path='/di' element={<DI />} />
 					<Route path='/operation' element={<Operation />} />
 					<Route path='/user' element={<User />} />
+					<Route path='/workstation' element={<Workstation />} />
 				</Routes>
 				{/* <Footer /> */}
 			</Router>
