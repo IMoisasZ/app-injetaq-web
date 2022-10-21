@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import MyContainer from '../../components/container/Container'
+import Mytab from '../../components/tab/Tab'
+import Tab from 'react-bootstrap/Tab'
 import MyForm from '../../components/itensForm/form/Form'
 import MyRow from '../../components/itensForm/row/Row'
 import MyInput from '../../components/itensForm/input/Input'
@@ -9,6 +11,7 @@ import MySelect from '../../components/itensForm/select/Select'
 import MyButton from '../../components/itensForm/button/Button'
 import Message from '../../components/message/Message'
 import api from '../../api/api'
+import styles from './DI.module.css'
 
 export default function DI() {
 	// usestate
@@ -91,142 +94,155 @@ export default function DI() {
 
 	return (
 		<MyContainer nameHeader='Cadastro DI'>
-			<MyForm margin='1em 0 0 0' handleOnSubmit={createDI}>
-				<MyRow>
-					<MyInput
-						type='text'
-						nameLabel='Incluido por'
-						name='incluidoPor'
-						placeHolder='Incluído por'
-						width='15em'
-						readOnly={true}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='Data inclusão'
-						name='dataInclusao'
-						placeHolder='Data inclusão'
-						width='10em'
-						readOnly={true}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='Alterado por'
-						name='alteradoPor'
-						placeHolder='Alterado por'
-						width='15em'
-						readOnly={true}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='Data alteração'
-						name='dataAlteracao'
-						placeHolder='Data alteração'
-						width='10em'
-						readOnly={true}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='Status'
-						name='status'
-						placeHolder='Status da di'
-						width='15em'
-						display='flex'
-						justifyContent='center'
-						alignItems='flex-end'
-						flexDirection='column'
-						readOnly={true}
-					/>
-				</MyRow>
-				<MyRow>
-					<MyInput
-						type='text'
-						nameLabel='DI'
-						name='di'
-						placeHolder='DI'
-						handleOnchange={(e) => setDI(e.currentTarget.value)}
-						value={di}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='OP'
-						name='op'
-						placeHolder='OP'
-						handleOnchange={(e) => setOP(e.currentTarget.value)}
-						value={op}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='Descrição'
-						name='descricao'
-						placeHolder='Descrição'
-						handleOnchange={(e) => setDescription(e.currentTarget.value)}
-						value={description}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='Numero'
-						name='numero'
-						placeHolder='Numero'
-						handleOnchange={(e) => setNumber(e.currentTarget.value)}
-						value={number}
-					/>
-				</MyRow>
-				<MyRow>
-					<MyInput
-						type='text'
-						nameLabel='Nome da peça'
-						name='nomePeca'
-						placeHolder='Nome da peça'
-						handleOnchange={(e) => setPartName(e.currentTarget.value)}
-						value={partName}
-					/>
-					<MyInput
-						type='text'
-						nameLabel='Numero da peça'
-						name='numeroPeca'
-						placeHolder='Numero da peça'
-						handleOnchange={(e) => setPartNumber(e.currentTarget.value)}
-						value={partNumber}
-					/>
-				</MyRow>
-				<MyRow>
-					<MySelect
-						name='cliente'
-						nameLabel='Cliente'
-						value={client}
-						handleOnChange={(e) => setClient(e.target.value)}
-					>
-						{listClient.map((client) => {
-							return (
-								<option key={client.id} value={client.id}>
-									{client.description}
-								</option>
-							)
-						})}
-					</MySelect>
-					<MyInput
-						type='date'
-						nameLabel='Data de início'
-						name='inicio'
-						placeHolder='Data de início'
-						width='90%'
-						handleOnchange={(e) => setStart(e.currentTarget.value)}
-						value={start}
-					/>
-					<MyInput
-						type='date'
-						nameLabel='Data de término'
-						name='termino'
-						placeHolder='Data de término'
-						width='90%'
-						handleOnchange={(e) => setFinish(e.currentTarget.value)}
-						value={finish}
-					/>
-					<MyButton type='submit' nameButton='Incluir' />
-				</MyRow>
-				{msg && <Message msg={msg} />}
-			</MyForm>
+			<Mytab>
+				<Tab eventKey='di' title='DI'>
+					<MyForm margin='1em 0 0 0' handleOnSubmit={createDI}>
+						<MyRow>
+							<MyInput
+								type='text'
+								nameLabel='Incluido por'
+								name='incluidoPor'
+								placeHolder='Incluído por'
+								width='15em'
+								readOnly={true}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='Data inclusão'
+								name='dataInclusao'
+								placeHolder='Data inclusão'
+								width='10em'
+								readOnly={true}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='Alterado por'
+								name='alteradoPor'
+								placeHolder='Alterado por'
+								width='15em'
+								readOnly={true}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='Data alteração'
+								name='dataAlteracao'
+								placeHolder='Data alteração'
+								width='10em'
+								readOnly={true}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='Status'
+								name='status'
+								placeHolder='Status da di'
+								width='15em'
+								display='flex'
+								justifyContent='center'
+								alignItems='flex-end'
+								flexDirection='column'
+								readOnly={true}
+							/>
+						</MyRow>
+						<MyRow>
+							<MyInput
+								type='text'
+								nameLabel='DI'
+								name='di'
+								placeHolder='DI'
+								handleOnchange={(e) => setDI(e.currentTarget.value)}
+								value={di}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='OP'
+								name='op'
+								placeHolder='OP'
+								handleOnchange={(e) => setOP(e.currentTarget.value)}
+								value={op}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='Descrição'
+								name='descricao'
+								placeHolder='Descrição'
+								handleOnchange={(e) => setDescription(e.currentTarget.value)}
+								value={description}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='Numero'
+								name='numero'
+								placeHolder='Numero'
+								handleOnchange={(e) => setNumber(e.currentTarget.value)}
+								value={number}
+							/>
+						</MyRow>
+						<MyRow>
+							<MyInput
+								type='text'
+								nameLabel='Nome da peça'
+								name='nomePeca'
+								placeHolder='Nome da peça'
+								handleOnchange={(e) => setPartName(e.currentTarget.value)}
+								value={partName}
+							/>
+							<MyInput
+								type='text'
+								nameLabel='Numero da peça'
+								name='numeroPeca'
+								placeHolder='Numero da peça'
+								handleOnchange={(e) => setPartNumber(e.currentTarget.value)}
+								value={partNumber}
+							/>
+						</MyRow>
+						<MyRow>
+							<MySelect
+								name='cliente'
+								nameLabel='Cliente'
+								value={client}
+								handleOnChange={(e) => setClient(e.target.value)}
+							>
+								{listClient.map((client) => {
+									return (
+										<option key={client.id} value={client.id}>
+											{client.description}
+										</option>
+									)
+								})}
+							</MySelect>
+							<MyInput
+								type='date'
+								nameLabel='Data de início'
+								name='inicio'
+								placeHolder='Data de início'
+								width='90%'
+								handleOnchange={(e) => setStart(e.currentTarget.value)}
+								value={start}
+							/>
+							<MyInput
+								type='date'
+								nameLabel='Data de término'
+								name='termino'
+								placeHolder='Data de término'
+								width='90%'
+								handleOnchange={(e) => setFinish(e.currentTarget.value)}
+								value={finish}
+							/>
+							<MyButton type='submit' nameButton='Incluir' />
+						</MyRow>
+						{msg && <Message msg={msg} />}
+					</MyForm>
+				</Tab>
+				<Tab eventKey='di_horas' title='DI Horas'>
+					<h2>DI Horas</h2>
+				</Tab>
+				<Tab eventKey='di_material' title='DI Material'>
+					<h2>DI Material</h2>
+				</Tab>
+				<Tab eventKey='comment' title='Comentarios DI'>
+					<h2>Comentários</h2>
+				</Tab>
+			</Mytab>
 		</MyContainer>
 	)
 }

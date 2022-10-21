@@ -100,12 +100,11 @@ export default function Client() {
 	}
 
 	// edit client
-	const editClient = async (id) => {
+	const editClient = async ({ id, description, actived }) => {
 		try {
-			const response = await api.get(`client/${id}`)
-			setId(response.data.id)
-			setClient(response.data.description)
-			setActived(response.data.actived)
+			setId(id)
+			setClient(description)
+			setActived(actived)
 			setnameBtn('Editar')
 		} catch (error) {
 			setMsg({
@@ -213,7 +212,7 @@ export default function Client() {
 							<td className={styles.table_btn}>
 								<ButtonTable
 									btnType='edit'
-									handleOnClick={() => editClient(cli.id)}
+									handleOnClick={() => editClient(cli)}
 								/>
 							</td>
 							<td className={styles.table_btn}>

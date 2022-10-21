@@ -86,7 +86,6 @@ export default function User() {
 					role,
 					actived,
 				})
-
 				setMsg({
 					msg: 'Usuário alterado com sucesso!',
 					typeMsg: 'warning',
@@ -114,15 +113,14 @@ export default function User() {
 	}
 
 	// edit user
-	const editUser = async (id) => {
+	const editUser = async ({ id, name, lastName, email, role, actived }) => {
 		try {
-			const response = await api.get(`user/${id}`)
 			setId(id)
-			setName(response.data.name)
-			setLastName(response.data.lastName)
-			setEmail(response.data.email)
-			setRole(response.data.role)
-			setActived(response.data.actived)
+			setName(name)
+			setLastName(lastName)
+			setEmail(email)
+			setRole(role)
+			setActived(actived)
 			setNameBtn('Editar')
 			setReadOnly(true)
 		} catch (error) {
@@ -309,12 +307,7 @@ export default function User() {
 							<Button msg={msg} nameButton={nameBtn} />
 						) : (
 							<div className={styles.div_btns}>
-								<Button
-									msg={msg}
-									nameButton={nameBtn}
-									variant='warning'
-									handleOnClick={editUser}
-								/>
+								<Button msg={msg} nameButton={nameBtn} variant='warning' />
 								<ModalChangePassword
 									name={`${name} ${lastName}`}
 									email={email}
@@ -346,7 +339,7 @@ export default function User() {
 							<td>
 								<ButtonTable
 									btnType='edit'
-									handleOnClick={() => editUser(user.id)}
+									handleOnClick={() => editUser(user)}
 								/>
 							</td>
 							<td>

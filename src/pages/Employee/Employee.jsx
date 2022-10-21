@@ -97,12 +97,11 @@ export default function Employee() {
 	}
 
 	// edit employee
-	const editEmployee = async (id) => {
+	const editEmployee = async ({ id, description, actived }) => {
 		try {
-			const response = await api.get(`employee/${id}`)
-			setId(response.data.id)
-			setEmployee(response.data.description)
-			setActived(response.data.actived)
+			setId(id)
+			setEmployee(description)
+			setActived(actived)
 			setNameBtn('Editar')
 		} catch (error) {
 			setMsg({
@@ -204,7 +203,7 @@ export default function Employee() {
 							<td>
 								<ButtonTable
 									btnType='edit'
-									handleOnClick={() => editEmployee(employee.id)}
+									handleOnClick={() => editEmployee(employee)}
 								/>
 							</td>
 							<td>

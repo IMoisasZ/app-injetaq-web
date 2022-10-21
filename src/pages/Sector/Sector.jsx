@@ -97,12 +97,11 @@ export default function Sector() {
 	}
 
 	// edit sector
-	const editSector = async (id) => {
+	const editSector = async ({ id, description, actived }) => {
 		try {
-			const response = await api.get(`sector/${id}`)
-			setId(response.data.id)
-			setSector(response.data.description)
-			setActived(response.data.actived)
+			setId(id)
+			setSector(description)
+			setActived(actived)
 			setNameBtn('Editar')
 		} catch (error) {
 			setMsg({
@@ -204,7 +203,7 @@ export default function Sector() {
 							<td>
 								<ButtonTable
 									btnType='edit'
-									handleOnClick={() => editSector(sector.id)}
+									handleOnClick={() => editSector(sector)}
 								/>
 							</td>
 							<td>

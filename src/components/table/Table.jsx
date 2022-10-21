@@ -1,7 +1,9 @@
+/** @format */
+
 import Table from 'react-bootstrap/Table'
 import styles from './Table.module.css'
 
-export default function MyTable({ header, children }) {
+export default function MyTable({ header, children, numCol = 2 }) {
 	return (
 		<div className={styles.container}>
 			<Table striped bordered hover className={styles.table_container}>
@@ -9,7 +11,7 @@ export default function MyTable({ header, children }) {
 					<tr>
 						{header.map((it, index) => {
 							return it === 'Ações' ? (
-								<th key={index} colSpan={2}>
+								<th key={index} colSpan={numCol}>
 									{it}
 								</th>
 							) : (

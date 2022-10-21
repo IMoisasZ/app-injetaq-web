@@ -9,10 +9,11 @@ import Message from '../../components/message/Message'
 import Button from '../../components/itensForm/button/Button'
 import MyTable from '../../components/table/Table'
 import ButtonTable from '../../components/table/ButtonsTable'
+import ModalAssociateOperation from '../../pages/Workstation/ModalAssociateOperation'
 import styles from './Workstation.module.css'
 import api from '../../api/api'
 
-export default function Workstation() {
+export default function Workstation({ set }) {
 	// usestate
 	const [id, setId] = useState('')
 	const [code, setCode] = useState('')
@@ -21,6 +22,7 @@ export default function Workstation() {
 	const [listWorkstations, setListWorkstations] = useState([])
 	const [msg, setMsg] = useState('')
 	const [nameBtn, setNameBtn] = useState('Incluir')
+	const [modal, setModal] = useState(false)
 
 	// get all sectors
 	const allWorkstationss = async () => {
@@ -100,13 +102,12 @@ export default function Workstation() {
 	}
 
 	// edit workstation
-	const editWorkstations = async (id) => {
+	const editWorkstations = async ({ id, code, description, actived }) => {
 		try {
-			const response = await api.get(`workstation/${id}`)
-			setId(response.data.id)
-			setCode(response.data.code)
-			setWorkstations(response.data.description)
-			setActived(response.data.actived)
+			setId(id)
+			setCode(code)
+			setWorkstations(description)
+			setActived(actived)
 			setNameBtn('Editar')
 		} catch (error) {
 			setMsg({
@@ -162,7 +163,7 @@ export default function Workstation() {
 							nameLabel='Código do posto'
 							type='text'
 							value={code}
-							handleOnchange={(e) => setWorkstations(e.currentTarget.value)}
+							handleOnchange={(e) => setCode(e.currentTarget.value)}
 						/>
 					</div>
 					<div style={{ width: '85%' }}>
@@ -210,7 +211,7 @@ export default function Workstation() {
 				<h2>Lista de Postos</h2>
 				{msg && <Message msg={msg} />}
 			</div>
-			<MyTable header={header}>
+			<MyTable header={header} numCol={3}>
 				{listWorkstations.map((workstation) => {
 					return (
 						<tr key={workstation.id} className={styles.table_btn}>
@@ -220,7 +221,7 @@ export default function Workstation() {
 							<td>
 								<ButtonTable
 									btnType='edit'
-									handleOnClick={() => editWorkstations(workstation.id)}
+									handleOnClick={() => editWorkstations(workstation)}
 								/>
 							</td>
 							<td>
@@ -239,6 +240,13 @@ export default function Workstation() {
 										}
 									/>
 								)}
+							</td>
+							<td>
+								<ModalAssociateOperation
+									code={workstation.code}
+									description={workstation.description}
+									id={workstation.id}
+								/>
 							</td>
 						</tr>
 					)

@@ -111,13 +111,12 @@ export default function Operation() {
 	}
 	console.log(operation, sector, actived, 'operation')
 	// edit operation
-	const editOperation = async (id) => {
+	const editOperation = async ({ id, description, sector_id, actived }) => {
 		try {
-			const response = await api.get(`operation/${id}`)
-			setId(response.data.id)
-			setOperation(response.data.description)
-			setSector(response.data.sector_id)
-			setActived(response.data.actived)
+			setId(id)
+			setOperation(description)
+			setSector(sector_id)
+			setActived(actived)
 			setNameBtn('Editar')
 		} catch (error) {
 			setMsg({
@@ -238,7 +237,7 @@ export default function Operation() {
 							<td>
 								<ButtonTable
 									btnType='edit'
-									handleOnClick={() => editOperation(operation.id)}
+									handleOnClick={() => editOperation(operation)}
 								/>
 							</td>
 							<td>

@@ -8,3 +8,7 @@
     background-color: #363636;
     color: #D2691E;
 }
+
+.btn {
+    cursor: pointer;
+}
