@@ -11,7 +11,12 @@ import MyButton from '../../components/itensForm/button/Button'
 import MyTable from '../../components/table/Table'
 import api from '../../api/api'
 
-export default function ModalChangePassword({ id, code, description }) {
+export default function ModalChangePassword({
+	workstationId,
+	code,
+	description,
+}) {
+	console.log(workstationId)
 	// usestate
 	const [show, setShow] = useState(false)
 	const [operation, setOperation] = useState('Selecione operação...')
@@ -30,25 +35,32 @@ export default function ModalChangePassword({ id, code, description }) {
 	}
 
 	// all associations
-	const allAssociates = async (id) => {
-		const response = await api.get(`workstation/connectToOperation/${id}`)
+	const allAssociates = async (workstationId) => {
+		const response = await api.get(
+			`workstation/connectToOperation/${workstationId}`
+		)
 		setListAssociate(response.data)
 	}
 
-	console.log(id)
-
 	useEffect(() => {
 		allOperations()
-		allAssociates(id)
-	}, [id])
+	}, [])
 
-	console.log(listAssociate)
+	useEffect(() => {
+		allAssociates(workstationId)
+	}, [workstationId])
+
+	// delte associations
+	const deleteAssociation = async (associteId) => {
+		await api.delete(`workstation/connectToOperation/${associteId}`)
+		allAssociates(workstationId)
+	}
 
 	const createAssociate = async (e) => {
 		e.preventDefault()
 		try {
 			await api.post('workstation/connectToOperation', {
-				workstation_id: Number(id),
+				workstation_id: Number(workstationId),
 				operation_id: Number(operation),
 			})
 			setMsg({
@@ -71,15 +83,16 @@ export default function ModalChangePassword({ id, code, description }) {
 
 	// clear the fields
 	const handleClear = () => {
-		setShow(false)
 		setOperation('Selecione operação...')
 		allOperations()
-		allAssociates()
+		allAssociates(workstationId)
 		setMsg('')
 	}
 
 	// header table
 	const header = ['Operação', 'Ações']
+
+	console.log(listAssociate)
 
 	return (
 		<>
@@ -151,9 +164,16 @@ export default function ModalChangePassword({ id, code, description }) {
 						<MyTable header={header} numCol={2}>
 							{listAssociate.map((associate) => {
 								return (
-									<option key={associate.id} value={associate.id}>
-										{associate.operation.description}
-									</option>
+									<tr key={associate.id}>
+										<td>{associate.operation.description}</td>
+										<td style={{ textAlign: 'center' }}>
+											<ButtonTable
+												btnType='delete'
+												handleOnClick={() => deleteAssociation(associate.id)}
+												title={associate.operation.description}
+											/>
+										</td>
+									</tr>
 								)
 							})}
 						</MyTable>
@@ -163,8 +183,8 @@ export default function ModalChangePassword({ id, code, description }) {
 					<Button variant='secondary' onClick={handleClose}>
 						Cancelar
 					</Button>
-					<Button variant='primary' onClick={''}>
-						Salvar
+					<Button variant='primary' onClick={handleClose}>
+						OK
 					</Button>
 					{msg && <Message msg={msg} />}
 				</Modal.Footer>

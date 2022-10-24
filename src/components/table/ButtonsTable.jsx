@@ -4,6 +4,7 @@ import React from 'react'
 import { FiEdit } from 'react-icons/fi'
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { MdOutlineAddLink } from 'react-icons/md'
+import { RiDeleteBinLine } from 'react-icons/ri'
 import styles from './Table.module.css'
 
 export default function ButtonTable({ handleOnClick, btnType, title }) {
@@ -74,6 +75,21 @@ export default function ButtonTable({ handleOnClick, btnType, title }) {
 				<MdOutlineAddLink
 					style={{ color: '#0000CD', fontSize: '2.5em', padding: 0 }}
 				/>
+			</button>
+		)
+	} else if (btnType === 'delete') {
+		return (
+			<button
+				onClick={handleOnClick}
+				type='button'
+				style={{
+					backgroundColor: 'transparent',
+					border: 'none',
+					padding: 0,
+				}}
+				title={`Delete a associação a operação ${title}`}
+			>
+				<RiDeleteBinLine style={{ color: '#B22222', fontSize: '2.5em' }} />
 			</button>
 		)
 	}

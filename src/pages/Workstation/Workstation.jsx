@@ -22,7 +22,6 @@ export default function Workstation({ set }) {
 	const [listWorkstations, setListWorkstations] = useState([])
 	const [msg, setMsg] = useState('')
 	const [nameBtn, setNameBtn] = useState('Incluir')
-	const [modal, setModal] = useState(false)
 
 	// get all sectors
 	const allWorkstationss = async () => {
@@ -245,7 +244,7 @@ export default function Workstation({ set }) {
 								<ModalAssociateOperation
 									code={workstation.code}
 									description={workstation.description}
-									id={workstation.id}
+									workstationId={workstation.id}
 								/>
 							</td>
 						</tr>
