@@ -1,6 +1,8 @@
+/** @format */
+
 import React from 'react'
 import Form from 'react-bootstrap/Form'
-import Col from '../../container/Col'
+import styles from './CheckBox.module.css'
 
 export default function CheckBox({
 	name,
@@ -10,9 +12,8 @@ export default function CheckBox({
 	checked,
 }) {
 	return (
-		<Col style={{ width: '1em' }}>
+		<div className={styles.container}>
 			<Form.Check
-				style={{ width: '1em' }}
 				type='switch'
 				id={name}
 				label={labelCheckBox}
@@ -20,6 +21,6 @@ export default function CheckBox({
 				value={value}
 				checked={checked}
 			/>
-		</Col>
+		</div>
 	)
 }

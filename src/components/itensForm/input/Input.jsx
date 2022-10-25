@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
@@ -9,7 +11,9 @@ export default function MyInput({
 	type,
 	name,
 	handleOnchange,
-	width,
+	handleOnBlur,
+	width = '100%',
+	margin,
 	display,
 	justifyContent,
 	alignItems,
@@ -27,6 +31,7 @@ export default function MyInput({
 				alignItems,
 				flexDirection,
 				width,
+				margin,
 			}}
 			className={styles.container}
 		>
@@ -39,6 +44,7 @@ export default function MyInput({
 				placeholder={placeHolder}
 				name={name}
 				onChange={handleOnchange}
+				onBlur={handleOnBlur}
 				readOnly={readOnly}
 				value={value}
 			/>
