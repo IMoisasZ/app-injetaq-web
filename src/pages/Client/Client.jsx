@@ -34,7 +34,6 @@ export default function Client() {
 	// create a new client
 	const createClient = async (e) => {
 		e.preventDefault()
-
 		if (nameBtn === 'Incluir') {
 			try {
 				await api.post('client', {
@@ -152,24 +151,15 @@ export default function Client() {
 	return (
 		<Container nameHeader='Cliente'>
 			<Form handleOnSubmit={createClient}>
-				<div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-					<div style={{ width: '85%' }}>
-						<Input
-							nameLabel='Nome'
-							placeHolder='Nome do cliente'
-							value={client}
-							handleOnchange={(e) => setClient(e.currentTarget.value)}
-						/>
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-							width: '10%',
-							marginLeft: '2em',
-						}}
-					>
+				<div className={styles.container}>
+					<Input
+						nameLabel='Nome'
+						placeHolder='Nome do cliente'
+						value={client}
+						handleOnchange={(e) => setClient(e.currentTarget.value)}
+					/>
+
+					<div className={styles.checkbox}>
 						<CheckBox
 							name='actived'
 							labelCheckBox='Ativo'
@@ -200,7 +190,6 @@ export default function Client() {
 				<h2>Lista de Clientes</h2>
 				{msg && <Message msg={msg} />}
 			</div>
-
 			<MyTable header={header}>
 				{list.map((cli) => {
 					return (
