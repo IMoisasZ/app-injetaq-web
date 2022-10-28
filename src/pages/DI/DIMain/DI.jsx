@@ -1,3 +1,9 @@
+/**
+ * /* eslint-disable react-hooks/exhaustive-deps
+ *
+ * @format
+ */
+
 /** @format */
 
 import React, { useState, useEffect } from 'react'
@@ -105,6 +111,7 @@ export default function DI() {
 	// load di selected all the time when the function diSelected was change
 	useEffect(() => {
 		diSelected(loadDI)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loadDI])
 
 	const dataDIDefault = (dtType) => {
