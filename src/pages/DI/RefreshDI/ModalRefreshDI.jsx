@@ -65,6 +65,7 @@ export default function ModalRefreshDI({ di, status, diId, setStatus, allDI }) {
 				margin='1em 2em 0 0 '
 				type='button'
 				handleOnClick={() => handleShow()}
+				disabled={status === 'CANCELADA' ? true : false}
 			/>
 
 			<Modal show={show} onHide={handleClose} open={handleShow} size={'md'}>

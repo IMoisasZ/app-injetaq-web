@@ -296,17 +296,19 @@ export default function DI() {
 									load={setLoadDI}
 									allClients={listClient}
 								/>
-								<MyButton
-									nameButton='Habilitar Edição'
-									handleOnClick={() => {
-										setDisable(false)
-										setNameBtn('Editar')
-									}}
-									width='5em'
-									variant='warning'
-									type='button'
-									display={visible}
-								/>
+								{status !== 'CANCELADA' && (
+									<MyButton
+										nameButton='Habilitar Edição'
+										handleOnClick={() => {
+											setDisable(false)
+											setNameBtn('Editar')
+										}}
+										width='5em'
+										variant='warning'
+										type='button'
+										display={visible}
+									/>
+								)}
 							</div>
 							<div>
 								{di && (
@@ -490,11 +492,13 @@ export default function DI() {
 								margin='0 2em 0 0'
 								readOnly={disable}
 							/>
-							<MyButton
-								type='submit'
-								nameButton={nameBtn}
-								variant={nameBtn === 'Incluir' ? 'primary' : 'warning'}
-							/>
+							{status !== 'CANCELADA' && (
+								<MyButton
+									type='submit'
+									nameButton={nameBtn}
+									variant={nameBtn === 'Incluir' ? 'primary' : 'warning'}
+								/>
+							)}
 						</div>
 					</MyForm>
 					<DITotal
