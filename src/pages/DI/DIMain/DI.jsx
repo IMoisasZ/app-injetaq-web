@@ -88,9 +88,9 @@ export default function DI() {
 			setStatus(loadDI.status)
 			setDataDI({
 				createdBy: 'Moises',
-				createdAt: formatDate(loadDI.createdAt),
+				createdAt: dataDIDefault(loadDI.createdAt),
 				updatedBy: 'Moises',
-				updatedAt: formatDate(loadDI.updatedAt),
+				updatedAt: dataDIDefault(loadDI.updatedAt),
 			})
 			setVisible('block')
 			setDisable(true)
@@ -107,6 +107,14 @@ export default function DI() {
 		diSelected(loadDI)
 	}, [loadDI])
 
+	const dataDIDefault = (dtType) => {
+		const st = new Date(dtType)
+		const day = st.getDate() < 9 ? `0${st.getDate()}` : st.getDate()
+		const month = st.getMonth() + 1
+		const year = st.getFullYear()
+		return `${day}/${month}/${year}`
+	}
+
 	// show di created
 	const showDICreated = (data) => {
 		setDIId(data.id)
@@ -120,17 +128,13 @@ export default function DI() {
 		setStart(formatDate(data.start))
 		setFinish(formatDate(data.finish))
 		setStatus(data.status)
+
 		setDataDI({
 			createdBy: 'Moises',
-			createdAt: formatDate(data.createdAt),
+			createdAt: dataDIDefault(data.createdAt),
 			updatedBy: 'Moises',
-			updatedAt: formatDate(data.updatedAt),
+			updatedAt: dataDIDefault(data.updatedAt),
 		})
-		const st = new Date(data.start)
-		const day = st.getDate() > 9 ? `0${st.getDate()}` : st.getDate()
-		const month = st.getMonth() + 1
-		const year = st.getFullYear()
-		setStart(`${year}/${month}/${day}`)
 	}
 
 	// create DI
