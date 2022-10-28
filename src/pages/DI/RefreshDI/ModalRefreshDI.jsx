@@ -49,6 +49,10 @@ export default function ModalRefreshDI({ di, status, diId, setStatus, allDI }) {
 				msg: error.response.data.error || error.response.data.erros,
 				typeMsg: 'error',
 			})
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
+			console.error({ error })
 		}
 	}
 
