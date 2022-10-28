@@ -12,6 +12,7 @@ export default function MyInput({
 	name,
 	handleOnchange,
 	handleOnBlur,
+	handleOnClick,
 	width = '100%',
 	margin,
 	display,
@@ -45,6 +46,7 @@ export default function MyInput({
 				name={name}
 				onChange={handleOnchange}
 				onBlur={handleOnBlur}
+				onClick={handleOnClick}
 				readOnly={readOnly}
 				value={value}
 			/>

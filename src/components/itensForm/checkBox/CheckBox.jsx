@@ -10,16 +10,19 @@ export default function CheckBox({
 	handleOnchange = null,
 	value,
 	checked,
+	type = 'switch',
 }) {
 	return (
 		<div className={styles.container}>
 			<Form.Check
-				type='switch'
+				type={type}
 				id={name}
 				label={labelCheckBox}
 				onChange={handleOnchange}
 				value={value}
 				checked={checked}
+				name={name}
+				inline
 			/>
 		</div>
 	)

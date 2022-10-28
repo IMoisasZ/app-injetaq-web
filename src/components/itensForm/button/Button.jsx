@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import styles from './Button.module.css'
@@ -11,15 +13,19 @@ export default function MyButton({
 	height = '4em',
 	backgroundColor,
 	color,
+	display = 'block',
+	margin,
+	disabled,
 }) {
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} style={{ margin }}>
 			<Button
 				variant={variant}
 				type={type}
 				onClick={handleOnClick}
 				className={styles.button}
-				style={{ width, height, backgroundColor, color }}
+				style={{ width, height, backgroundColor, color, display }}
+				disabled={disabled}
 			>
 				{nameButton}
 			</Button>

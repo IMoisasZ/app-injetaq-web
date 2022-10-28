@@ -8,19 +8,18 @@ import styles from './Select.module.css'
 export default function MySelect({
 	name,
 	nameLabel,
-	defaultValue,
 	handleOnChange,
 	children,
 	width,
 	value,
+	margin,
 }) {
 	return (
 		<Form.Group as={Col} controlId={name} className={styles.container}>
-			<Form.Label className={styles.select_label} style={{ width }}>
+			<Form.Label className={styles.select_label} style={{ width, margin }}>
 				{nameLabel}
 			</Form.Label>
 			<Form.Select onChange={handleOnChange} style={{ width }} value={value}>
-				<option value=''>{defaultValue}</option>
 				{children}
 			</Form.Select>
 		</Form.Group>
