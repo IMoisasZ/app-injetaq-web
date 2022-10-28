@@ -227,7 +227,7 @@ export default function ModalListDI({ load, data, allClients }) {
 							</div>
 						)}
 					</div>
-					<MyTable header={header} numCol={2}>
+					<MyTable header={header} numCol={2} margin='0.5em 0 0 0'>
 						{dataDI.map((di) => {
 							return (
 								<tr key={di.id}>
