@@ -1,0 +1,32 @@
+.container {
+
+}
+
+.div_di_status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.div_di_status input {
+    margin-right: 0.5em;
+}
+
+.div_apontamento {
+    display: flex;
+    border: 1px solid #000;
+    border-radius: 0.5em;
+    padding: 0 1em;
+    margin-bottom: 1em;
+}
+
+.div_apontamento .div_select {
+    width: 30%;
+    margin-right: 2%;
+    
+}
+
+.table_btn {
+    text-align: center;
+}
