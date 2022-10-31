@@ -51,18 +51,20 @@
     border-radius: 0.5em;
     padding: 0 0.5em;
     width: 33%;
+    cursor: pointer;
+    transition: 2s;
 }
 
-.total .prev {
-    background-color: #66CDAA;
-    color: #000;
+.total .prev:hover,
+.total .util:hover,
+.total .rest:hover {
+    background-color: #008080;
+    color: #fff
 }
 
-.total .util {
-    background-color: #4682B4;
-    color: #000;
-}
-.total .rest {
+.total .rest,
+.total .util,
+.total .prev  {
     background-color: #fff;
     color: #000;
 }

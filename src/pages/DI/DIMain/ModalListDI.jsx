@@ -189,7 +189,7 @@ export default function ModalListDI({ load, data, allClients }) {
 							</MySelect>
 						</div>
 						<div style={{ margin: '0 1em 0 0' }}>
-							<Button
+							<MyButton
 								btnType='clear'
 								type='button'
 								handleOnClick={() => setClient('')}
@@ -240,7 +240,7 @@ export default function ModalListDI({ load, data, allClients }) {
 									<td>{di.part_number}</td>
 									<td>{di.status}</td>
 									<td style={{ textAlign: 'center' }}>
-										<Button
+										<MyButton
 											btnType='see'
 											handleOnClick={() => handleLoadDI(di)}
 											title={`a DI ${di.di}`}

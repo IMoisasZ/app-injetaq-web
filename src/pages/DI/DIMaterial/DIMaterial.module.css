@@ -20,20 +20,19 @@
 .div_apontamento .div_select {
     width: 30%;
     margin-right: 2%;
-    
 }
 
 .table_btn {
     text-align: center;
 }
 
-.div_total_hours,  .div_total_hours span {
+.div_total_material,  .div_total_material span {
     margin-top: 1em;
     font-weight: bold;
     border-radius: 0.5em;
 }
 
-.div_total_hours span {
+.div_total_material span {
     background-color: burlywood;
     padding: 0 0.5em;
 }

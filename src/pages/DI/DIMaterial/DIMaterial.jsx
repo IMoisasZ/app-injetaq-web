@@ -6,29 +6,27 @@ import MySelect from '../../../components/itensForm/select/Select'
 import MyTable from '../../../components/table/Table'
 import MyButton from '../../../components/itensForm/button/Button'
 import Message from '../../../components/message/Message'
-import {
-	formatNumberDecimal,
-	formatNumberCurrency,
-} from '../../../utils/formatNumber'
+import { formatNumberCurrency } from '../../../utils/formatNumber'
 import api from '../../../api/api'
-import styles from './DIHours.module.css'
+import styles from './DIMaterial.module.css'
 
 export default function DIHours({
 	di_id,
 	di,
 	status,
-	listDIHours,
-	allDIHours,
+	listDIMaterial = [],
+	allDIMaterial,
+	totalGeralMaterial,
+	totalMaterial,
 }) {
 	//usestate
+	const [description, setDescription] = useState('')
 	const [material, setMaterial] = useState('')
 	const [listMaterial, setListMaterial] = useState([])
-	const [quantity, setQuantity] = useState('')
-	const [price, setPrice] = useState('')
-	const [totalCost, setTotalCost] = useState(0)
+	const [costTotal, setCostTotal] = useState('')
 	const [msg, setMsg] = useState('')
 
-	// all operations
+	// all materials
 	const allMaterials = async () => {
 		try {
 			const response = await api.get('material')
@@ -46,50 +44,27 @@ export default function DIHours({
 		allMaterials()
 	}, [])
 
-	// format field quantity
-	const formatQuantity = (e) => {
-		if (quantity.includes('.', ',')) {
-			setQuantity(quantity)
-			formatTotalCost()
-		} else {
-			setQuantity(formatNumberDecimal(e.currentTarget.value))
-			formatTotalCost()
-		}
-	}
-
 	// format field price
-	const formatPrice = (e) => {
-		if (price.includes('R$')) {
-			setPrice(price)
-			formatTotalCost()
-		} else {
-			setPrice(formatNumberCurrency(e.currentTarget.value))
-			formatTotalCost()
+	const formatCostTotal = (e) => {
+		if (!costTotal.includes('R$')) {
+			return setCostTotal(formatNumberCurrency(e.currentTarget.value))
 		}
-	}
-
-	// format field price
-	const formatTotalCost = () => {
-		const new_quantity = quantity.replace('.', '').replace(',', '.')
-		const new_price = price.replace('R$', '').replace('.', '').replace(',', '.')
-		const total_cost = Number(new_quantity) * Number(new_price)
-		setTotalCost(formatNumberCurrency(total_cost.toString()))
 	}
 
 	// include hours DI
-	const inclurHoursDI = async (e) => {
+	const includeMaterialDI = async (e) => {
 		e.preventDefault()
 		try {
-			await api.post('di_hours', {
+			await api.post('di_material', {
 				di_id,
-				operation_id: operation,
-				quantity,
-				price: parseFloat(
-					price.replace('R$', '').replace('.', '').replace(',', '.')
+				description,
+				material_id: material,
+				total: parseFloat(
+					costTotal.replace('R$', '').replace('.', '').replace(',', '.')
 				),
 			})
 			setMsg({
-				msg: 'Horas incluídas com sucesso!',
+				msg: 'Materia Prima/Serviço incluído com sucesso!',
 				typeMsg: 'success',
 			})
 			setTimeout(() => {
@@ -104,33 +79,19 @@ export default function DIHours({
 				setMsg('')
 			}, 2000)
 			console.error({ error })
-			allDIHours()
+			allDIMaterial()
 		}
 	}
 
-	// virify if the operation have ever used
-	const handleOperation = (e) => {
-		const usedOperation = listDIHours.find(
-			(op) => op.operation_id === Number(e.currentTarget.value)
-		)
-		console.log('teste', typeof usedOperation)
-		if (usedOperation) {
-			setMsg({
-				msg: 'Operação já utilizada!',
-				typeMsg: 'error',
-			})
-			setTimeout(() => {
-				setOperation('')
-			}, 2000)
-		} else {
-			setOperation(e.currentTarget.value)
-		}
+	// virify if the material have been ever used
+	const handleMaterial = (e) => {
+		setMaterial(e.currentTarget.value)
 	}
 
-	// delete the operation selected
+	// delete the material selected
 	const handleDelete = async (id) => {
 		try {
-			const response = await api.delete(`di_hours/${Number(id)}`)
+			const response = await api.delete(`di_material/${Number(id)}`)
 			setMsg({
 				msg: response.data.msg,
 				typeMsg: 'success',
@@ -152,20 +113,19 @@ export default function DIHours({
 
 	// handle clear
 	const handleClear = () => {
-		setOperation('Selecione uma operação...')
-		allOperations()
-		setQuantity('')
-		setPrice('')
-		setTotalCost(0)
-		allDIHours()
+		setDescription('')
+		setMaterial('Selecione uma operação...')
+		setCostTotal('')
+		allMaterials()
+		allDIMaterial()
 		setMsg('')
+		totalGeralMaterial()
 	}
 
 	//header DI hours
-	const headerDIHours = [
-		'Operação',
-		'Quantidade Horas',
-		'Custo Hora',
+	const headerDIRawMaterial = [
+		'Descrição',
+		'Material/Serviço',
 		'Custo Total',
 		'Ações',
 	]
@@ -175,7 +135,7 @@ export default function DIHours({
 			<div className={styles.div_di_status}>
 				<div>
 					<MyInput
-						name='di_hours'
+						name='di_material'
 						nameLabel='DI'
 						type='text'
 						value={di}
@@ -185,7 +145,7 @@ export default function DIHours({
 				</div>
 				<div>
 					<MyInput
-						name='status_hours'
+						name='status_material'
 						nameLabel='Status'
 						type='text'
 						value={status}
@@ -195,19 +155,29 @@ export default function DIHours({
 				</div>
 			</div>
 			<div className={styles.div_apontamento}>
+				<div style={{ width: '60%', marginRight: '2%' }}>
+					<MyInput
+						name='description'
+						nameLabel='Material/Serviço'
+						placeHolder='Descrição do material/serviço'
+						type='text'
+						value={description}
+						handleOnchange={(e) => setDescription(e.currentTarget.value)}
+					/>
+				</div>
 				<div className={styles.div_select}>
 					<MySelect
-						name='operation'
-						nameLabel='Operação'
-						value={operation}
-						handleOnChange={handleOperation}
+						name='material'
+						nameLabel='Matéria Prima/Serviço'
+						value={material}
+						handleOnChange={handleMaterial}
 						margin='1em 0 0.5em 0'
 					>
-						<option value=''>Selecione operação...</option>
-						{listOperation.map((operation) => {
+						<option value=''>Selecione material/serviço...</option>
+						{listMaterial.map((material) => {
 							return (
-								<option key={operation.id} value={operation.id}>
-									{operation.description}
+								<option key={material.id} value={material.id}>
+									{material.description}
 								</option>
 							)
 						})}
@@ -215,73 +185,52 @@ export default function DIHours({
 				</div>
 				<div style={{ width: '20%', marginRight: '2%' }}>
 					<MyInput
-						name='quantity'
-						nameLabel='Total horas'
-						placeHolder='Digite o total de horas previstas!'
+						name='costTotal'
+						nameLabel='Custo matéria prima/serviço'
+						placeHolder='Digite o custo total!'
 						type='text'
-						value={quantity}
-						handleOnchange={(e) =>
-							setQuantity(e.currentTarget.value.replace('.', ''))
-						}
-						handleOnBlur={formatQuantity}
-					/>
-				</div>
-				<div style={{ width: '20%', marginRight: '2%' }}>
-					<MyInput
-						name='price'
-						nameLabel='Custo hora'
-						placeHolder='Digite o custo hora!'
-						type='text'
-						value={price}
-						handleOnchange={(e) => setPrice(e.currentTarget.value)}
-						handleOnBlur={formatPrice}
-					/>
-				</div>
-				<div style={{ width: '15%', marginRight: '5%' }}>
-					<MyInput
-						name='total_cost'
-						nameLabel='Custo total'
-						type='text'
-						value={totalCost}
-						readOnly={true}
+						value={costTotal}
+						handleOnchange={(e) => setCostTotal(e.currentTarget.value)}
+						handleOnBlur={formatCostTotal}
 					/>
 				</div>
 				<div style={{ display: 'flex', alignItems: 'center', margin: '0' }}>
 					<MyButton
 						nameButton='Incluir'
 						type='submit'
-						handleOnClick={inclurHoursDI}
+						handleOnClick={includeMaterialDI}
 						disabled={di && status === 'EM EXECUÇÃO' ? false : true}
 						btnType='text'
 					/>
 				</div>
 			</div>
-			<MyTable header={headerDIHours}>
-				{listDIHours.map((diHrs) => {
-					console.log(typeof diHrs.quantity)
+			<MyTable header={headerDIRawMaterial} height='25em'>
+				{listDIMaterial.map((diMPS) => {
+					console.log(typeof diMPS.quantity)
 					return (
-						<tr key={diHrs.id}>
-							<td>{diHrs.operation.description}</td>
-							<td>{formatNumberDecimal(diHrs.quantity)}</td>
-							<td>{formatNumberCurrency(diHrs.price)}</td>
-							<td>
-								{formatNumberCurrency(
-									(
-										parseFloat(diHrs.quantity) * parseFloat(diHrs.price)
-									).toString()
-								)}
-							</td>
+						<tr key={diMPS.id}>
+							<td>{diMPS.description}</td>
+							<td>{diMPS.material.description}</td>
+							<td>{formatNumberCurrency(diMPS.total)}</td>
 							<td className={styles.table_btn}>
 								<MyButton
 									btnType='delete'
-									title={`horas da operação ${diHrs.operation.description}`}
-									handleOnClick={() => handleDelete(diHrs.id)}
+									title={`matéria prima/serviço ${diMPS.material.description}`}
+									handleOnClick={() => handleDelete(diMPS.id)}
 								/>
 							</td>
 						</tr>
 					)
 				})}
 			</MyTable>
+			{totalMaterial !== 'R$ 0,00' ? (
+				<div className={styles.div_total_material}>
+					Custo total previsto de matéria prima/serviço{' '}
+					<span>{totalMaterial}</span>
+				</div>
+			) : (
+				''
+			)}
 			{msg && <Message msg={msg} width='100%' />}
 		</div>
 	)

@@ -19,6 +19,9 @@ export default function DIHours({
 	status,
 	listDIHours,
 	allDIHours,
+	totalGeralHours,
+	totalHours,
+	totalCostHrs,
 }) {
 	//usestate
 	const [operation, setOperation] = useState('')
@@ -159,6 +162,7 @@ export default function DIHours({
 		setTotalCost(0)
 		allDIHours()
 		setMsg('')
+		totalGeralHours()
 	}
 
 	//header DI hours
@@ -256,7 +260,7 @@ export default function DIHours({
 					/>
 				</div>
 			</div>
-			<MyTable header={headerDIHours}>
+			<MyTable header={headerDIHours} height='25em'>
 				{listDIHours.map((diHrs) => {
 					console.log(typeof diHrs.quantity)
 					return (
@@ -282,6 +286,14 @@ export default function DIHours({
 					)
 				})}
 			</MyTable>
+			{totalHours !== '0,00' ? (
+				<div className={styles.div_total_hours}>
+					Total horas previstas <span>{totalHours}</span> - Custo total previsto{' '}
+					<span>{totalCostHrs()}</span>
+				</div>
+			) : (
+				''
+			)}
 			{msg && <Message msg={msg} width='100%' />}
 		</div>
 	)

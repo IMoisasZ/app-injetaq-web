@@ -16,6 +16,7 @@ import MySelect from '../../../components/itensForm/select/Select'
 import MyButton from '../../../components/itensForm/button/Button'
 import Message from '../../../components/message/Message'
 import DIHours from '../DIHours/DIHours'
+import DIMaterial from '../DIMaterial/DIMaterial'
 import ModalListDI from './ModalListDI'
 import ModalRefreshDI from '../RefreshDI/ModalRefreshDI'
 import api from '../../../api/api'
@@ -49,9 +50,13 @@ export default function DI() {
 	const [nameBtn, setNameBtn] = useState('Incluir')
 	const [loadDI, setLoadDI] = useState('')
 	const [totalHours, setTotalHours] = useState('0,00')
+	const [totalMaterial, setTotalMaterial] = useState('R$ 0,00')
 
 	// useState di hours
 	const [listDIHours, setListDIHours] = useState([])
+
+	// useState di hours
+	const [listDIMaterial, setListDIMaterial] = useState([])
 
 	// all clients
 	const allClients = async () => {
@@ -285,6 +290,39 @@ export default function DI() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [diId])
 
+	// ----------------------------------di material-----------------------------------------------------
+	// allDI material
+	const allDIMaterial = async () => {
+		try {
+			const response = await api.get(`di_material/material/${Number(diId)}`)
+			setListDIMaterial(response.data)
+		} catch (error) {
+			setMsg({
+				msg: error.response.data.error || error.response.data.erros,
+				typeMsg: 'error',
+			})
+			setTimeout(() => {
+				setMsg('')
+			}, 2000)
+			console.error({ error })
+		}
+	}
+
+	const totalGeralMaterial = async () => {
+		const total = await api.get(`di_material/sum/${Number(diId)}`)
+		setTotalMaterial(
+			total.data[0].total_material === null
+				? 'R$ 0,00'
+				: formatNumberCurrency(total.data[0].total_material)
+		)
+	}
+
+	useEffect(() => {
+		totalGeralMaterial()
+		allDIMaterial()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [diId])
+
 	return (
 		<MyContainer nameHeader='Cadastro DI'>
 			<Mytab>
@@ -514,6 +552,7 @@ export default function DI() {
 					<DITotal
 						totalHours={totalHours}
 						totalCostHrs={totalGeralCustoHoras}
+						totalMaterial={totalMaterial}
 					/>
 					{msg && <Message msg={msg} margin='0.5em 0 0 0' width='100%' />}
 				</Tab>
@@ -524,10 +563,21 @@ export default function DI() {
 						status={status}
 						listDIHours={listDIHours}
 						allDIHours={allDIHours}
+						totalGeralHours={totalGeralHours}
+						totalHours={totalHours}
+						totalCostHrs={totalGeralCustoHoras}
 					/>
 				</Tab>
 				<Tab eventKey='di_material' title='DI Material'>
-					<h2>DI Material</h2>
+					<DIMaterial
+						di={di}
+						di_id={diId}
+						status={status}
+						listDIMaterial={listDIMaterial}
+						allDIMaterial={allDIMaterial}
+						totalGeralMaterial={totalGeralMaterial}
+						totalMaterial={totalMaterial}
+					/>
 				</Tab>
 				<Tab eventKey='comment' title='Comentarios DI'>
 					<h2>Comentários</h2>

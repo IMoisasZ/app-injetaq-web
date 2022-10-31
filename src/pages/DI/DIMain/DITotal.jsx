@@ -1,9 +1,20 @@
 /** @format */
 import React from 'react'
 import styles from './DI.module.css'
+import { formatNumberCurrency } from '../../../utils/formatNumber'
 
-export default function DITotal({ totalHours, totalCostHrs }) {
+export default function DITotal({ totalHours, totalCostHrs, totalMaterial }) {
 	const cost = totalCostHrs()
+	const ttMaterial = parseFloat(
+		totalMaterial.replace('R$', '').replace('.', '').replace(',', '.')
+	)
+	const totalGeralPrevisto = formatNumberCurrency(
+		(
+			parseFloat(cost.replace('R$', '').replace('.', '').replace(',', '.')) +
+			ttMaterial
+		).toString()
+	)
+
 	return (
 		<div className={styles.total}>
 			<div className={styles.prev}>
@@ -15,10 +26,10 @@ export default function DITotal({ totalHours, totalCostHrs }) {
 					Custo Total Horas: <span>{cost}</span>
 				</p>
 				<p>
-					Custo Total Material: <span></span>
+					Custo Total Material: <span>{totalMaterial}</span>
 				</p>
 				<p>
-					Custo Total Previsto: <span></span>
+					Custo Total Previsto: <span>{totalGeralPrevisto}</span>
 				</p>
 			</div>
 			<div className={styles.util}>
