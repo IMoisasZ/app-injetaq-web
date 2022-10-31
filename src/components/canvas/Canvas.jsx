@@ -9,6 +9,7 @@ import { BsFillPeopleFill } from 'react-icons/bs'
 import { FaWpforms } from 'react-icons/fa'
 import { MdOutlineSettingsOverscan, MdHomeRepairService } from 'react-icons/md'
 import { FaUser, FaDharmachakra, FaPeopleCarry } from 'react-icons/fa'
+import { ImBoxAdd } from 'react-icons/im'
 import styles from './Canvas.module.css'
 
 export default function OffCanvasExample({ sideCanvas = 'top', ...props }) {
@@ -48,6 +49,11 @@ export default function OffCanvasExample({ sideCanvas = 'top', ...props }) {
 						icon={<MdHomeRepairService />}
 						nameIcon='Operação'
 						path='/operation'
+					/>
+					<ButtonMenu
+						icon={<ImBoxAdd />}
+						nameIcon='Material/Serviço'
+						path='/rawMaterial'
 					/>
 					<ButtonMenu icon={<FaUser />} nameIcon='Usuário' path='/user' />
 					<ButtonMenu
