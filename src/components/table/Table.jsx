@@ -3,9 +3,15 @@
 import Table from 'react-bootstrap/Table'
 import styles from './Table.module.css'
 
-export default function MyTable({ header, children, numCol = 2, margin }) {
+export default function MyTable({
+	header,
+	children,
+	numCol = 2,
+	margin,
+	height,
+}) {
 	return (
-		<div className={styles.container} style={{ margin }}>
+		<div className={styles.container} style={{ margin, height }}>
 			<Table striped bordered hover className={styles.table_container}>
 				<thead className={styles.header_table}>
 					<tr>
