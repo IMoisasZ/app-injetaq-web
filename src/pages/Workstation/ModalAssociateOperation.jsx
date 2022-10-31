@@ -6,7 +6,6 @@ import Modal from 'react-bootstrap/Modal'
 import MyInput from '../../components/itensForm/input/Input'
 import MySelect from '../../components/itensForm/select/Select'
 import Message from '../../components/message/Message'
-import ButtonTable from '../../components/table/ButtonsTable'
 import MyButton from '../../components/itensForm/button/Button'
 import MyTable from '../../components/table/Table'
 import api from '../../api/api'
@@ -96,7 +95,7 @@ export default function ModalChangePassword({
 
 	return (
 		<>
-			<ButtonTable btnType='associate' handleOnClick={() => handleShow()} />
+			<MyButton btnType='associate' handleOnClick={() => handleShow()} />
 			<Modal show={show} onHide={handleClose} open={handleShow} size={'lg'}>
 				<Modal.Header closeButton>
 					<Modal.Title>Associar posto com operação</Modal.Title>
@@ -158,6 +157,7 @@ export default function ModalChangePassword({
 							nameButton='Incluir'
 							type='submit'
 							handleOnClick={createAssociate}
+							btnType='text'
 						/>
 					</div>
 					<div>
@@ -167,7 +167,7 @@ export default function ModalChangePassword({
 									<tr key={associate.id}>
 										<td>{associate.operation.description}</td>
 										<td style={{ textAlign: 'center' }}>
-											<ButtonTable
+											<Button
 												btnType='delete'
 												handleOnClick={() => deleteAssociation(associate.id)}
 												title={associate.operation.description}

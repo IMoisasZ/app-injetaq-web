@@ -297,6 +297,7 @@ export default function DI() {
 									handleOnClick={handleClear}
 									width='5em'
 									type='button'
+									btnType='text'
 								/>
 								<ModalListDI
 									data={listDI}
@@ -314,6 +315,7 @@ export default function DI() {
 										variant='warning'
 										type='button'
 										display={visible}
+										btnType='text'
 									/>
 								)}
 							</div>
@@ -504,6 +506,7 @@ export default function DI() {
 									type='submit'
 									nameButton={nameBtn}
 									variant={nameBtn === 'Incluir' ? 'primary' : 'warning'}
+									btnType='text'
 								/>
 							)}
 						</div>

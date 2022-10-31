@@ -6,7 +6,6 @@ import Form from '../../components/itensForm/form/Form'
 import Input from '../../components/itensForm/input/Input'
 import CheckBox from '../../components/itensForm/checkBox/CheckBox'
 import MyTable from '../../components/table/Table'
-import ButtonTable from '../../components/table/ButtonsTable'
 import Button from '../../components/itensForm/button/Button'
 import Message from '../../components/message/Message'
 import styles from './Client.module.css'
@@ -169,18 +168,24 @@ export default function Client() {
 						/>
 					</div>
 					{nameBtn === 'Incluir' ? (
-						<Button nameButton={nameBtn} handleOnClick={createClient} />
+						<Button
+							nameButton={nameBtn}
+							handleOnClick={createClient}
+							btnType='text'
+						/>
 					) : (
 						<div className={styles.div_btns}>
 							<Button
 								nameButton={nameBtn}
 								handleOnClick={createClient}
 								variant='warning'
+								btnType='text'
 							/>
 							<Button
 								nameButton='Limpar'
 								handleOnClick={handleClear}
 								variant='secondary'
+								btnType='text'
 							/>
 						</div>
 					)}
@@ -199,19 +204,16 @@ export default function Client() {
 								{cli.actived ? 'Sim' : 'Não'}
 							</td>
 							<td className={styles.table_btn}>
-								<ButtonTable
-									btnType='edit'
-									handleOnClick={() => editClient(cli)}
-								/>
+								<Button btnType='edit' handleOnClick={() => editClient(cli)} />
 							</td>
 							<td className={styles.table_btn}>
 								{cli.actived ? (
-									<ButtonTable
+									<Button
 										btnType='disable'
 										handleOnClick={() => disbleEnableClient(cli.id, false)}
 									/>
 								) : (
-									<ButtonTable
+									<Button
 										btnType='enable'
 										handleOnClick={() => disbleEnableClient(cli.id, true)}
 									/>

@@ -9,7 +9,6 @@ import CheckBox from '../../components/itensForm/checkBox/CheckBox'
 import Message from '../../components/message/Message'
 import Button from '../../components/itensForm/button/Button'
 import MyTable from '../../components/table/Table'
-import ButtonTable from '../../components/table/ButtonsTable'
 import styles from './Operation.module.css'
 import api from '../../api/api'
 
@@ -166,7 +165,7 @@ export default function Operation() {
 		<Container nameHeader='Operação'>
 			<Form handleOnSubmit={createOperation}>
 				<div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-					<div style={{ width: '85%' }}>
+					<div style={{ width: '85%', margin: '0 1em 0 0' }}>
 						<MyInput
 							name='operation'
 							placeHolder='Nome do setor'
@@ -176,13 +175,12 @@ export default function Operation() {
 							handleOnchange={(e) => setOperation(e.currentTarget.value)}
 						/>
 					</div>
-					<div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+					<div style={{ display: 'flex', alignItems: 'center', width: '85%' }}>
 						<MySelect
 							name='sector'
 							nameLabel='Setor'
 							value={sector}
 							handleOnChange={(e) => setSector(e.currentTarget.value)}
-							// defaultValue='Selecione o setor...'
 						>
 							{listSector.map((sector) => {
 								return (
@@ -211,14 +209,20 @@ export default function Operation() {
 						/>
 					</div>
 					{nameBtn === 'Incluir' ? (
-						<Button msg={msg} nameButton={nameBtn} />
+						<Button msg={msg} nameButton={nameBtn} btnType='text' />
 					) : (
 						<div className={styles.div_btns}>
-							<Button msg={msg} nameButton={nameBtn} variant='warning' />
+							<Button
+								msg={msg}
+								nameButton={nameBtn}
+								variant='warning'
+								btnType='text'
+							/>
 							<Button
 								nameButton='Limpar'
 								variant='secondary'
 								handleOnClick={handleClear}
+								btnType='text'
 							/>
 						</div>
 					)}
@@ -235,21 +239,21 @@ export default function Operation() {
 							<td>{operation.description}</td>
 							<td>{operation.actived ? 'Sim' : 'Não'}</td>
 							<td>
-								<ButtonTable
+								<Button
 									btnType='edit'
 									handleOnClick={() => editOperation(operation)}
 								/>
 							</td>
 							<td>
 								{operation.actived ? (
-									<ButtonTable
+									<Button
 										btnType='disable'
 										handleOnClick={() =>
 											disableEnableOperation(operation.id, false)
 										}
 									/>
 								) : (
-									<ButtonTable
+									<Button
 										btnType='enable'
 										handleOnClick={() =>
 											disableEnableOperation(operation.id, true)

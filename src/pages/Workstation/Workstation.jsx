@@ -8,7 +8,6 @@ import CheckBox from '../../components/itensForm/checkBox/CheckBox'
 import Message from '../../components/message/Message'
 import Button from '../../components/itensForm/button/Button'
 import MyTable from '../../components/table/Table'
-import ButtonTable from '../../components/table/ButtonsTable'
 import ModalAssociateOperation from '../../pages/Workstation/ModalAssociateOperation'
 import styles from './Workstation.module.css'
 import api from '../../api/api'
@@ -193,14 +192,20 @@ export default function Workstation({ set }) {
 						/>
 					</div>
 					{nameBtn === 'Incluir' ? (
-						<Button msg={msg} nameButton={nameBtn} />
+						<Button msg={msg} nameButton={nameBtn} btnType='text' />
 					) : (
 						<div className={styles.div_btns}>
-							<Button msg={msg} nameButton={nameBtn} variant='warning' />
+							<Button
+								msg={msg}
+								nameButton={nameBtn}
+								variant='warning'
+								btnType='text'
+							/>
 							<Button
 								nameButton='Limpar'
 								variant='secondary'
 								handleOnClick={handleClear}
+								btnType='text'
 							/>
 						</div>
 					)}
@@ -218,21 +223,21 @@ export default function Workstation({ set }) {
 							<td>{workstation.description}</td>
 							<td>{workstation.actived ? 'Sim' : 'Não'}</td>
 							<td>
-								<ButtonTable
+								<Button
 									btnType='edit'
 									handleOnClick={() => editWorkstations(workstation)}
 								/>
 							</td>
 							<td>
 								{workstation.actived ? (
-									<ButtonTable
+									<Button
 										btnType='disable'
 										handleOnClick={() =>
 											disableEnableWorkstations(workstation.id, false)
 										}
 									/>
 								) : (
-									<ButtonTable
+									<Button
 										btnType='enable'
 										handleOnClick={() =>
 											disableEnableWorkstations(workstation.id, true)

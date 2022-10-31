@@ -9,7 +9,6 @@ import CheckBox from '../../components/itensForm/checkBox/CheckBox'
 import Message from '../../components/message/Message'
 import Button from '../../components/itensForm/button/Button'
 import MyTable from '../../components/table/Table'
-import ButtonTable from '../../components/table/ButtonsTable'
 import ModalChangePassword from './ModalChangePassword'
 import styles from './User.module.css'
 import api from '../../api/api'
@@ -304,10 +303,15 @@ export default function User() {
 							/>
 						</div>
 						{nameBtn === 'Incluir' ? (
-							<Button msg={msg} nameButton={nameBtn} />
+							<Button msg={msg} nameButton={nameBtn} btnType='text' />
 						) : (
 							<div className={styles.div_btns}>
-								<Button msg={msg} nameButton={nameBtn} variant='warning' />
+								<Button
+									msg={msg}
+									nameButton={nameBtn}
+									variant='warning'
+									btnType='text'
+								/>
 								<ModalChangePassword
 									name={`${name} ${lastName}`}
 									email={email}
@@ -316,6 +320,7 @@ export default function User() {
 									nameButton='Limpar'
 									variant='secondary'
 									handleOnClick={handleClear}
+									btnType='text'
 								/>
 							</div>
 						)}
@@ -337,19 +342,16 @@ export default function User() {
 							</td>
 							<td>{user.actived ? 'Sim' : 'Não'}</td>
 							<td>
-								<ButtonTable
-									btnType='edit'
-									handleOnClick={() => editUser(user)}
-								/>
+								<Button btnType='edit' handleOnClick={() => editUser(user)} />
 							</td>
 							<td>
 								{user.actived ? (
-									<ButtonTable
+									<Button
 										btnType='disable'
 										handleOnClick={() => disableEnableUser(user.id, false)}
 									/>
 								) : (
-									<ButtonTable
+									<Button
 										btnType='enable'
 										handleOnClick={() => disableEnableUser(user.id, true)}
 									/>

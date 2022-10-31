@@ -12,7 +12,6 @@ import {
 } from '../../../utils/formatNumber'
 import api from '../../../api/api'
 import styles from './DIHours.module.css'
-import ButtonTable from '../../../components/table/ButtonsTable'
 
 export default function DIHours({
 	di_id,
@@ -136,7 +135,6 @@ export default function DIHours({
 				msg: response.data.msg,
 				typeMsg: 'success',
 			})
-			console.log(response)
 			setTimeout(() => {
 				handleClear()
 			}, 2000)
@@ -254,6 +252,7 @@ export default function DIHours({
 						type='submit'
 						handleOnClick={inclurHoursDI}
 						disabled={di && status === 'EM EXECUÇÃO' ? false : true}
+						btnType='text'
 					/>
 				</div>
 			</div>
@@ -273,7 +272,7 @@ export default function DIHours({
 								)}
 							</td>
 							<td className={styles.table_btn}>
-								<ButtonTable
+								<MyButton
 									btnType='delete'
 									title={`horas da operação ${diHrs.operation.description}`}
 									handleOnClick={() => handleDelete(diHrs.id)}

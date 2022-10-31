@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import ButtonTable from '../../../components/table/ButtonsTable'
 import MyButton from '../../../components/itensForm/button/Button'
 import MyTable from '../../../components/table/Table'
 import Form from '../../../components/itensForm/form/Form'
@@ -97,6 +96,7 @@ export default function ModalListDI({ load, data, allClients }) {
 				width='5em'
 				variant='secondary'
 				type='button'
+				btnType='text'
 			/>
 
 			<Modal
@@ -189,7 +189,7 @@ export default function ModalListDI({ load, data, allClients }) {
 							</MySelect>
 						</div>
 						<div style={{ margin: '0 1em 0 0' }}>
-							<ButtonTable
+							<Button
 								btnType='clear'
 								type='button'
 								handleOnClick={() => setClient('')}
@@ -240,7 +240,7 @@ export default function ModalListDI({ load, data, allClients }) {
 									<td>{di.part_number}</td>
 									<td>{di.status}</td>
 									<td style={{ textAlign: 'center' }}>
-										<ButtonTable
+										<Button
 											btnType='see'
 											handleOnClick={() => handleLoadDI(di)}
 											title={`a DI ${di.di}`}
