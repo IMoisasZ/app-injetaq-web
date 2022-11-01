@@ -27,6 +27,7 @@ import {
 	formatNumberDecimal,
 } from '../../../utils/formatNumber'
 import DITotal from './DITotal'
+import DIComment from '../DIComment/DIComment'
 
 export default function DI() {
 	// usestate
@@ -57,6 +58,9 @@ export default function DI() {
 
 	// useState di hours
 	const [listDIMaterial, setListDIMaterial] = useState([])
+
+	// useState di comment
+	const [listComment, setListComment] = useState([])
 
 	// all clients
 	const allClients = async () => {
@@ -323,8 +327,20 @@ export default function DI() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [diId])
 
+	// ----------------------------------di comments-----------------------------------------------------
+	// all comments
+	const allComments = async () => {
+		const response = await api.get(`comment_di/di/${Number(diId)}`)
+		setListComment(response.data)
+	}
+
+	useEffect(() => {
+		allComments()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [diId])
+
 	return (
-		<MyContainer nameHeader='Cadastro DI'>
+		<MyContainer nameHeader={di ? `DI ${di}` : 'Cadastro DI'}>
 			<Mytab>
 				<Tab eventKey='di' title='DI'>
 					<MyForm margin='1em 0 0 0' handleOnSubmit={createDI}>
@@ -580,7 +596,13 @@ export default function DI() {
 					/>
 				</Tab>
 				<Tab eventKey='comment' title='Comentarios DI'>
-					<h2>Comentários</h2>
+					<DIComment
+						di={di}
+						di_id={diId}
+						status={status}
+						data={listComment}
+						allComments={allComments}
+					/>
 				</Tab>
 			</Mytab>
 		</MyContainer>
