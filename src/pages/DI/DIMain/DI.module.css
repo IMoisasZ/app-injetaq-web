@@ -79,3 +79,50 @@
     font-weight: bold;
     padding: 0;
 }
+
+.btns_di {
+    display: flex; 
+    justify-content: space-between;
+}
+
+/* modal list di */
+.modal_container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: '100%';
+}
+
+.modal_filters_status {
+    display: flex; 
+    flex-direction: column
+}
+
+.modal_filters_status p {
+    font-weight: bold;
+    font-size: 1.2em; 
+    margin: 0;
+}
+
+.modal_select_client {
+    display: flex;
+    width: 30%;
+    margin: 0 0 0 1em;
+}
+
+.modal_btn_clear_client {
+    margin: 0 2em 0 0
+}
+
+.modal_error_di {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1em;
+    width: 5%;
+    text-align: center;
+}
+
+.table_btn {
+    text-align: center;
+}

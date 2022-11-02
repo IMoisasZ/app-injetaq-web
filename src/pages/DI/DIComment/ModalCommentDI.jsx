@@ -14,6 +14,8 @@ import MyInput from '../../../components/itensForm/input/Input'
 import MyTextArea from '../../../components/itensForm/textArea/MyTextArea'
 import Message from '../../../components/message/Message'
 import api from '../../../api/api'
+import { formatDateBrWithHour } from '../../../utils/formatDate'
+import styles from './DIComment.module.css'
 
 export default function ModalRefreshDI({
 	di,
@@ -34,28 +36,21 @@ export default function ModalRefreshDI({
 	const handleShow = () => setShow(true)
 
 	// date
-	const date = new Date()
-	const day = date.getDate() < 9 ? `0${date.getDate()}` : date.getDate()
-	const month =
-		date.getMonth() + 1 < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
-	const year = date.getFullYear()
-	const today = `${day}/${month}/${year}`
+	const today = formatDateBrWithHour(new Date().toString())
 
-	// edit comment
+	// edit comment (if have a comment to do edition)
 	useEffect(() => {
-		if (dataEdit) {
-			setIDComment(dataEdit.id)
-			setComment(dataEdit.comment)
-		}
+		setIDComment(dataEdit.id)
+		setComment(dataEdit.comment)
 	}, [dataEdit])
 
-	// refresh status di
+	// include/edit comment
 	async function handleCommentDI() {
 		if (!dataEdit) {
 			try {
 				await api.post('comment_di', {
 					di_id: diId,
-					date,
+					date: today.toString(),
 					comment,
 					user_id: 1,
 				})
@@ -84,7 +79,7 @@ export default function ModalRefreshDI({
 				await api.patch('comment_di', {
 					id: idComment,
 					di_id: dataEdit.di_id,
-					date: today,
+					date: new Date(),
 					comment,
 					user_id: 1,
 				})
@@ -136,13 +131,7 @@ export default function ModalRefreshDI({
 					<Modal.Title>{`Comentar a DI ${di}`}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
+					<div className={styles.data_fixed}>
 						<div>
 							<MyInput
 								name='di_comment'
@@ -151,6 +140,7 @@ export default function ModalRefreshDI({
 								value={di}
 								readOnly={true}
 								width='100%'
+								handleOnchange={null}
 							/>
 						</div>
 						<div>
@@ -158,8 +148,13 @@ export default function ModalRefreshDI({
 								name='date'
 								placeHolder='Data do comentário'
 								nameLabel='Data'
-								value={dataEdit ? dataEdit.date : today}
+								value={
+									dataEdit.length > 0
+										? formatDateBrWithHour(dataEdit.date)
+										: today
+								}
 								readOnly={true}
+								handleOnchange={null}
 							/>
 						</div>
 						<div>
@@ -170,23 +165,12 @@ export default function ModalRefreshDI({
 								value={status}
 								readOnly={true}
 								width='100%'
+								handleOnchange={null}
 							/>
 						</div>
 					</div>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-							width: '100%',
-							marginBottom: '1em',
-						}}
-					>
-						<div
-							style={{
-								width: '100%',
-							}}
-						>
+					<div className={styles.div_text_area}>
+						<div className={styles.text_area}>
 							<MyTextArea
 								name='comment'
 								nameTextArea='Comentário'
@@ -199,12 +183,17 @@ export default function ModalRefreshDI({
 					{msg && <Message msg={msg} margin='0.5em 0 0 0' width='100%' />}
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant='secondary' onClick={handleClose}>
+					<Button
+						variant='secondary'
+						onClick={handleClose}
+						disabled={msg ? true : false}
+					>
 						Cancelar
 					</Button>
 					<Button
 						variant={dataEdit ? 'warning' : 'primary'}
 						onClick={handleCommentDI}
+						disabled={msg ? true : false}
 					>
 						{dataEdit ? 'Editar' : 'Incluir'}
 					</Button>

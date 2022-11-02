@@ -21,7 +21,7 @@ import ModalListDI from './ModalListDI'
 import ModalRefreshDI from '../RefreshDI/ModalRefreshDI'
 import api from '../../../api/api'
 import styles from './DI.module.css'
-import formatDate from '../../../utils/formatDate'
+import { formatDate, formatDateBr } from '../../../utils/formatDate'
 import {
 	formatNumberCurrency,
 	formatNumberDecimal,
@@ -103,9 +103,9 @@ export default function DI() {
 			setStatus(loadDI.status)
 			setDataDI({
 				createdBy: 'Moises',
-				createdAt: dataDIDefault(loadDI.createdAt),
+				createdAt: formatDateBr(loadDI.createdAt),
 				updatedBy: 'Moises',
-				updatedAt: dataDIDefault(loadDI.updatedAt),
+				updatedAt: formatDateBr(loadDI.updatedAt),
 			})
 			setVisible('block')
 			setDisable(true)
@@ -123,14 +123,6 @@ export default function DI() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loadDI])
 
-	const dataDIDefault = (dtType) => {
-		const st = new Date(dtType)
-		const day = st.getDate() < 9 ? `0${st.getDate()}` : st.getDate()
-		const month = st.getMonth() + 1
-		const year = st.getFullYear()
-		return `${day}/${month}/${year}`
-	}
-
 	// show di created
 	const showDICreated = (data) => {
 		setDIId(data.id)
@@ -147,9 +139,9 @@ export default function DI() {
 
 		setDataDI({
 			createdBy: 'Moises',
-			createdAt: dataDIDefault(data.createdAt),
+			createdAt: formatDateBr(data.createdAt),
 			updatedBy: 'Moises',
-			updatedAt: dataDIDefault(data.updatedAt),
+			updatedAt: formatDateBr(data.updatedAt),
 		})
 	}
 
@@ -182,7 +174,7 @@ export default function DI() {
 				setDisable(true)
 				setVisible('block')
 			} catch (error) {
-				console.log({ error })
+				console.error({ error })
 				setMsg({
 					msg: error.response.data.error,
 					typeMsg: 'error',
@@ -210,7 +202,7 @@ export default function DI() {
 				showDICreated(alterDI.data)
 				setMsg({
 					msg: 'DI alterada com sucesso!',
-					typeMsg: 'success',
+					typeMsg: 'warning',
 				})
 				setTimeout(() => {
 					setMsg('')
@@ -219,7 +211,7 @@ export default function DI() {
 				setDisable(true)
 				setVisible('block')
 			} catch (error) {
-				console.log({ error })
+				console.error({ error })
 				setMsg({
 					msg: error.response.data.error,
 					typeMsg: 'error',
@@ -344,7 +336,7 @@ export default function DI() {
 			<Mytab>
 				<Tab eventKey='di' title='DI'>
 					<MyForm margin='1em 0 0 0' handleOnSubmit={createDI}>
-						<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+						<div className={styles.btns_di}>
 							<div className={styles.div_btns}>
 								<MyButton
 									nameButton='Nova DI'
@@ -358,20 +350,19 @@ export default function DI() {
 									load={setLoadDI}
 									allClients={listClient}
 								/>
-								{status !== 'CANCELADA' && (
-									<MyButton
-										nameButton='Habilitar Edição'
-										handleOnClick={() => {
-											setDisable(false)
-											setNameBtn('Editar')
-										}}
-										width='5em'
-										variant='warning'
-										type='button'
-										display={visible}
-										btnType='text'
-									/>
-								)}
+								<MyButton
+									nameButton='Habilitar Edição'
+									handleOnClick={() => {
+										setDisable(false)
+										setNameBtn('Editar')
+									}}
+									width='5em'
+									variant='warning'
+									type='button'
+									display={visible}
+									btnType='text'
+									disabled={status !== 'CANCELADA' ? false : true}
+								/>
 							</div>
 							<div>
 								{di && (
@@ -555,14 +546,14 @@ export default function DI() {
 								margin='0 2em 0 0'
 								readOnly={disable}
 							/>
-							{status !== 'CANCELADA' && (
-								<MyButton
-									type='submit'
-									nameButton={nameBtn}
-									variant={nameBtn === 'Incluir' ? 'primary' : 'warning'}
-									btnType='text'
-								/>
-							)}
+
+							<MyButton
+								type='submit'
+								nameButton={nameBtn}
+								variant={nameBtn === 'Incluir' ? 'primary' : 'warning'}
+								btnType='text'
+								disabled={status !== 'CANCELADA' ? false : true}
+							/>
 						</div>
 					</MyForm>
 					<DITotal

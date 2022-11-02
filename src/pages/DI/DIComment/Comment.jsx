@@ -3,26 +3,28 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import ModalCommentDI from './ModalCommentDI'
+import { formatDateBrWithHour } from '../../../utils/formatDate'
+import styles from './DIComment.module.css'
 
-export default function Comment({ data, di, status, allComments }) {
-	const formatDateBr = (date) => {
-		const dt = new Date(date)
-		const day = dt.getDate() < 9 ? `0${dt.getDate()}` : dt.getDate()
-		const month =
-			dt.getMonth() + 1 < 9 ? `0${dt.getMonth() + 1}` : dt.getMonth() + 1
-		const year = dt.getFullYear()
-		return `${day}/${month}/${year} - ${
-			dt.getHours() < 9 ? `0${dt.getHours()}` : dt.getHours()
-		}:${dt.getMinutes() < 9 ? `0${dt.getMinutes()}` : dt.getMinutes()}:${
-			dt.getSeconds() < 9 ? `0${dt.getSeconds()}` : dt.getSeconds()
-		}`
-	}
-
+export default function Comment({
+	data,
+	di,
+	status,
+	allComments,
+	filterComments,
+}) {
+	// user logged
 	const userName = 'MOISES'
+
+	// filter comments
+	const newData =
+		filterComments !== 'Todos'
+			? data.filter((it) => it.user.name === userName)
+			: data
 
 	return (
 		<div>
-			{data.map((comm, index) => {
+			{newData.map((comm, index) => {
 				return (
 					<Card
 						border={comm.user.name === userName ? 'primary' : 'secondary'}
@@ -30,17 +32,13 @@ export default function Comment({ data, di, status, allComments }) {
 						key={index}
 					>
 						<Card.Body
-							style={
-								index % 2 === 0
-									? { backgroundColor: '#dadada', cursor: 'pointer' }
-									: { backgroundColor: 'transparent', cursor: 'pointer' }
-							}
+							className={index % 2 === 0 ? styles.fill : styles.transparent}
 						>
-							<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-								<Card.Title>Data: {formatDateBr(comm.date)}</Card.Title>
+							<div className={styles.comments}>
+								<Card.Title>Data: {formatDateBrWithHour(comm.date)}</Card.Title>
 								<Card.Title>Usuário: {userName}</Card.Title>
 							</div>
-							<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+							<div className={styles.comments}>
 								<Card.Text>{comm.comment}</Card.Text>
 								{comm.user.name === userName ? (
 									<ModalCommentDI

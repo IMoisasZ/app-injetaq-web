@@ -9,6 +9,7 @@ import Form from '../../../components/itensForm/form/Form'
 import CheckBox from '../../../components/itensForm/checkBox/CheckBox'
 import MySelect from '../../../components/itensForm/select/Select'
 import MyInput from '../../../components/itensForm/input/Input'
+import styles from './DI.module.css'
 
 export default function ModalListDI({ load, data, allClients }) {
 	// usestate
@@ -109,18 +110,9 @@ export default function ModalListDI({ load, data, allClients }) {
 					<Modal.Title>Indice de DI</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'flex-start',
-							width: '100%',
-						}}
-					>
-						<div style={{ display: 'flex', flexDirection: 'column' }}>
-							<p style={{ fontWeight: 'bold', fontSize: '1.2em', margin: '0' }}>
-								Filtro
-							</p>
+					<div className={styles.modal_container}>
+						<div className={styles.modal_filters_status}>
+							<p>Filtro</p>
 							<Form
 								display='flex'
 								padding='1em'
@@ -160,13 +152,7 @@ export default function ModalListDI({ load, data, allClients }) {
 								/>
 							</Form>
 						</div>
-						<div
-							style={{
-								display: 'flex',
-								width: '30%',
-								margin: '0 0 0 1em',
-							}}
-						>
+						<div className={styles.modal_select_client}>
 							<MySelect
 								name='client'
 								nameLabel='Cliente'
@@ -188,7 +174,7 @@ export default function ModalListDI({ load, data, allClients }) {
 								})}
 							</MySelect>
 						</div>
-						<div style={{ margin: '0 1em 0 0' }}>
+						<div className={styles.modal_btn_clear_client}>
 							<MyButton
 								btnType='clear'
 								type='button'
@@ -211,26 +197,21 @@ export default function ModalListDI({ load, data, allClients }) {
 							/>
 						</div>
 						{error && (
-							<div
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-									marginLeft: '1em',
-									width: '5%',
-									textAlign: 'center',
-								}}
-							>
+							<div className={styles.modal_error_di}>
 								<span style={{ color: 'red', fontWeight: 'bold' }}>
 									DI não encontrada!
 								</span>
 							</div>
 						)}
 					</div>
-					<MyTable header={header} numCol={2} margin='0.5em 0 0 0'>
+					<MyTable header={header} numCol={2} margin='0.5em 0 0 0' height='85%'>
 						{dataDI.map((di) => {
 							return (
-								<tr key={di.id}>
+								<tr
+									key={di.id}
+									className={styles.table_btn}
+									title={`DI ${di.di}`}
+								>
 									<td>{di.di}</td>
 									<td>{di.op}</td>
 									<td>{di.client.description}</td>

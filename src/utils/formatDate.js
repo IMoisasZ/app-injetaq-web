@@ -1,6 +1,6 @@
 /** @format */
 
-function formatDate(date) {
+export function formatDate(date) {
 	const dt = new Date(date)
 	const day =
 		dt.getDate() < 9
@@ -13,4 +13,24 @@ function formatDate(date) {
 	return newDt.toString()
 }
 
-export default formatDate
+export function formatDateBrWithHour(date) {
+	const dt = new Date(date)
+	const day = dt.getDate() < 9 ? `0${dt.getDate()}` : dt.getDate()
+	const month =
+		dt.getMonth() + 1 < 9 ? `0${dt.getMonth() + 1}` : dt.getMonth() + 1
+	const year = dt.getFullYear()
+	return `${day}/${month}/${year} - ${
+		dt.getHours() < 9 ? `0${dt.getHours()}` : dt.getHours()
+	}:${dt.getMinutes() < 9 ? `0${dt.getMinutes()}` : dt.getMinutes()}:${
+		dt.getSeconds() < 9 ? `0${dt.getSeconds()}` : dt.getSeconds()
+	}`
+}
+
+export function formatDateBr(date) {
+	const dt = new Date(date)
+	const day = dt.getDate() < 9 ? `0${dt.getDate()}` : dt.getDate()
+	const month =
+		dt.getMonth() + 1 < 9 ? `0${dt.getMonth() + 1}` : dt.getMonth() + 1
+	const year = dt.getFullYear()
+	return `${day}/${month}/${year}`
+}

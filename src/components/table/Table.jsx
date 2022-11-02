@@ -9,12 +9,13 @@ export default function MyTable({
 	numCol = 2,
 	margin,
 	height,
+	title = '',
 }) {
 	return (
 		<div className={styles.container} style={{ margin, height }}>
 			<Table striped bordered hover className={styles.table_container}>
 				<thead className={styles.header_table}>
-					<tr>
+					<tr title={title}>
 						{header.map((it, index) => {
 							return it === 'Ações' ? (
 								<th key={index} colSpan={numCol}>

@@ -12,3 +12,15 @@
 .btn {
     cursor: pointer;
 }
+
+table tbody tr{
+    cursor: pointer;
+    transition: 2s;
+}
+
+table tbody tr:hover{
+    font-style: italic;
+    background-color: #8d8d8d;
+}
+
+

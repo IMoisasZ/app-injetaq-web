@@ -25,6 +25,7 @@ export default function DIHours({
 	const [listMaterial, setListMaterial] = useState([])
 	const [costTotal, setCostTotal] = useState('')
 	const [msg, setMsg] = useState('')
+	const [disabled, setDisabled] = useState(false)
 
 	// all materials
 	const allMaterials = async () => {
@@ -36,13 +37,23 @@ export default function DIHours({
 				msg: error.response.data.error,
 				typeMsg: 'error',
 			})
+			setDisabled(true)
+			setTimeout(() => {
+				setMsg('')
+				setDisabled(false)
+			}, 2000)
 			console.error({ error })
 		}
 	}
 
 	useEffect(() => {
 		allMaterials()
-	}, [])
+		if (di && status === 'EM EXECUÇÃO') {
+			setDisabled(false)
+		} else {
+			setDisabled(true)
+		}
+	}, [di, status])
 
 	// format field price
 	const formatCostTotal = (e) => {
@@ -67,6 +78,7 @@ export default function DIHours({
 				msg: 'Materia Prima/Serviço incluído com sucesso!',
 				typeMsg: 'success',
 			})
+			setDisabled(true)
 			setTimeout(() => {
 				handleClear()
 			}, 2000)
@@ -75,8 +87,10 @@ export default function DIHours({
 				msg: error.response.data.error,
 				typeMsg: 'error',
 			})
+			setDisabled(true)
 			setTimeout(() => {
 				setMsg('')
+				setDisabled(false)
 			}, 2000)
 			console.error({ error })
 			allDIMaterial()
@@ -96,6 +110,7 @@ export default function DIHours({
 				msg: response.data.msg,
 				typeMsg: 'success',
 			})
+			setDisabled(true)
 			setTimeout(() => {
 				handleClear()
 			}, 2000)
@@ -104,8 +119,10 @@ export default function DIHours({
 				msg: error.response.data.error,
 				typeMsg: 'error',
 			})
+			setDisabled(true)
 			setTimeout(() => {
 				setMsg('')
+				setDisabled(false)
 			}, 2000)
 			console.error({ error })
 		}
@@ -116,6 +133,7 @@ export default function DIHours({
 		setDescription('')
 		setMaterial('Selecione uma operação...')
 		setCostTotal('')
+		setDisabled(false)
 		allMaterials()
 		allDIMaterial()
 		setMsg('')
@@ -125,7 +143,7 @@ export default function DIHours({
 	//header DI hours
 	const headerDIRawMaterial = [
 		'Descrição',
-		'Material/Serviço',
+		'Matéria Prima/Serviço',
 		'Custo Total',
 		'Ações',
 	]
@@ -155,11 +173,11 @@ export default function DIHours({
 				</div>
 			</div>
 			<div className={styles.div_apontamento}>
-				<div style={{ width: '60%', marginRight: '2%' }}>
+				<div className={styles.div_description}>
 					<MyInput
 						name='description'
-						nameLabel='Material/Serviço'
-						placeHolder='Descrição do material/serviço'
+						nameLabel='Descrição'
+						placeHolder='Descreva a matéria prima/serviço'
 						type='text'
 						value={description}
 						handleOnchange={(e) => setDescription(e.currentTarget.value)}
@@ -173,7 +191,7 @@ export default function DIHours({
 						handleOnChange={handleMaterial}
 						margin='1em 0 0.5em 0'
 					>
-						<option value=''>Selecione material/serviço...</option>
+						<option value=''>Selecione matéria prima/serviço...</option>
 						{listMaterial.map((material) => {
 							return (
 								<option key={material.id} value={material.id}>
@@ -183,30 +201,29 @@ export default function DIHours({
 						})}
 					</MySelect>
 				</div>
-				<div style={{ width: '20%', marginRight: '2%' }}>
+				<div className={styles.div_cost_total}>
 					<MyInput
 						name='costTotal'
 						nameLabel='Custo matéria prima/serviço'
-						placeHolder='Digite o custo total!'
+						placeHolder='Digite o custo total'
 						type='text'
 						value={costTotal}
 						handleOnchange={(e) => setCostTotal(e.currentTarget.value)}
 						handleOnBlur={formatCostTotal}
 					/>
 				</div>
-				<div style={{ display: 'flex', alignItems: 'center', margin: '0' }}>
+				<div className={styles.div_btn}>
 					<MyButton
 						nameButton='Incluir'
 						type='submit'
 						handleOnClick={includeMaterialDI}
-						disabled={di && status === 'EM EXECUÇÃO' ? false : true}
+						disabled={disabled}
 						btnType='text'
 					/>
 				</div>
 			</div>
 			<MyTable header={headerDIRawMaterial} height='25em'>
 				{listDIMaterial.map((diMPS) => {
-					console.log(typeof diMPS.quantity)
 					return (
 						<tr key={diMPS.id}>
 							<td>{diMPS.description}</td>
@@ -217,6 +234,7 @@ export default function DIHours({
 									btnType='delete'
 									title={`matéria prima/serviço ${diMPS.material.description}`}
 									handleOnClick={() => handleDelete(diMPS.id)}
+									disabled={disabled}
 								/>
 							</td>
 						</tr>

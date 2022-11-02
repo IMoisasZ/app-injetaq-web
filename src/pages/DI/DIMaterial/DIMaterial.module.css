@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
 }
 
 .div_di_status input {
@@ -35,4 +34,20 @@
 .div_total_material span {
     background-color: burlywood;
     padding: 0 0.5em;
+}
+
+.div_description {
+   width: 60%;
+   margin-right: 2%;
+}
+
+.div_cost_total {
+    width: 20%;
+    margin-right: 2%;
+}
+
+.div_btn {
+    display: flex;
+    align-items: center;
+    margin: 0
 }

@@ -1,0 +1,61 @@
+/* di comment */
+.data_fixed {
+    display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.div_container {
+    display: flex;
+	justify-content: space-evenly;
+	margin: 0 0 1em 0;
+    width: 40%;
+    padding: 0 1em 1em;
+    border: 1px solid black;
+}
+
+.div_comments {
+    display: flex;
+    align-items: center;
+	justify-content: space-between;
+    width: 100%;
+}
+
+.div_filter p {
+    font-weight: bold;
+}
+
+.comments_container {
+    overflow-y: scroll;
+    height: 30em; 
+    padding: '0.5em 1em';
+}
+
+/* comments */
+.fill {
+    background-color: #dadada;
+    cursor: 'pointer'
+}
+
+.transparent {
+    background-color: transparent;
+    cursor: 'pointer'
+}
+
+.comments {
+    display: flex; 
+    justify-content: space-between;
+}
+
+/* modal comments */
+.div_text_area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.text_area {
+    width: 100%;
+}

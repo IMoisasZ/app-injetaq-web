@@ -103,7 +103,7 @@ export default function MyButton({
 					border: 'none',
 					padding: 0,
 				}}
-				title={`Delete a associação a operação ${title}`}
+				title={`Delete ${title}`}
 			>
 				<RiDeleteBinLine style={{ color: '#B22222', fontSize: '2.5em' }} />
 			</button>
