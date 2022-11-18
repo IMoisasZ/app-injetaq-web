@@ -1,0 +1,67 @@
+p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.style_date_employee_workstation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1em;
+    width: 100%;
+}
+
+.style_date_employee_workstation select {
+    width: 30%;
+    margin-bottom: 1em;
+    transition: 1s;
+}
+
+.style_date_employee_workstation select:hover {
+    width: 100%;
+}
+
+.style_name_fields {
+    background-color: #363636;
+    padding: 0.2em 0.5em;
+    margin: 1em 0;
+    border-radius: 0.5em ;
+    width: 100%;
+    color: #D2691E;
+    font-weight: bold;
+}
+
+.style_di {
+    display: flex;
+    align-items: center;
+    background-color: #363636;
+    padding: 0.2em 0.5em;
+    margin: 1em 0;
+    border-radius: 0.5em ;
+    width: 100%;
+    color: #D2691E;
+    font-weight: bold;
+}
+
+.style_di .style_di_column{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.style_di span {
+    font-weight: bold;
+    color: #fff;
+}
+
+.style_text_area {
+    margin-top: 1em;
+}
+
+.style_fields_time {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
