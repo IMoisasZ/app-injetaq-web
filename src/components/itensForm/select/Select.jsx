@@ -13,9 +13,15 @@ export default function MySelect({
 	width,
 	value,
 	margin,
+	title,
 }) {
 	return (
-		<Form.Group as={Col} controlId={name} className={styles.container}>
+		<Form.Group
+			as={Col}
+			controlId={name}
+			className={styles.container}
+			title={title}
+		>
 			<Form.Label className={styles.select_label} style={{ width, margin }}>
 				{nameLabel}
 			</Form.Label>

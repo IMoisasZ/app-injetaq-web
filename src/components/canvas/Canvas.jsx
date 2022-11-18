@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import ButtonMenu from './ButtonMenu'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { BsFillPeopleFill } from 'react-icons/bs'
+import { BsFillPeopleFill, BsFillFileEarmarkBinaryFill } from 'react-icons/bs'
 import { FaWpforms } from 'react-icons/fa'
 import { MdOutlineSettingsOverscan, MdHomeRepairService } from 'react-icons/md'
 import { FaUser, FaDharmachakra, FaPeopleCarry } from 'react-icons/fa'
@@ -65,6 +65,11 @@ export default function OffCanvasExample({ sideCanvas = 'top', ...props }) {
 						icon={<FaPeopleCarry />}
 						nameIcon='Funcionário'
 						path='/employee'
+					/>
+					<ButtonMenu
+						icon={<BsFillFileEarmarkBinaryFill />}
+						nameIcon='Apontamento de Horas'
+						path='/appointment_hours'
 					/>
 				</Offcanvas.Body>
 			</Offcanvas>

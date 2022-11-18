@@ -167,7 +167,7 @@ export default function ModalChangePassword({
 									<tr key={associate.id}>
 										<td>{associate.operation.description}</td>
 										<td style={{ textAlign: 'center' }}>
-											<Button
+											<MyButton
 												btnType='delete'
 												handleOnClick={() => deleteAssociation(associate.id)}
 												title={associate.operation.description}

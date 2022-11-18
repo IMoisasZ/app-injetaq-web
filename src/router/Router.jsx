@@ -11,6 +11,7 @@ import Material from '../pages/RawMaterial/RawMaterial'
 import User from '../pages/User/User'
 import Workstation from '../pages/Workstation/Workstation'
 import Employee from '../pages/Employee/Employee'
+import AppointmentHours from '../pages/AppointmentHours/AppointmentHours'
 
 export default function MyRoutes({ children }) {
 	return (
@@ -27,6 +28,7 @@ export default function MyRoutes({ children }) {
 					<Route path='/user' element={<User />} />
 					<Route path='/workstation' element={<Workstation />} />
 					<Route path='/employee' element={<Employee />} />
+					<Route path='/appointment_hours' element={<AppointmentHours />} />
 				</Routes>
 				{/* <Footer /> */}
 			</Router>
